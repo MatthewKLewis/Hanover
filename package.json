@@ -18,6 +18,7 @@
     "@angular/platform-browser": "~12.0.5",
     "@angular/platform-browser-dynamic": "~12.0.5",
     "@angular/router": "~12.0.5",
+    "ol": "^6.14.1",
     "rxjs": "~6.6.0",
     "streamedian": "^0.3.13",
     "tslib": "^2.1.0",
