@@ -32,6 +32,7 @@ export class MapService {
       {}
     );
   }
+  
   getMapById(id: number): Observable<any> {
     return this.http.get<any>(
       `/api/Maps/GetByMapId?MapId=${id}&CustomerId=${this.customerId}`,
@@ -70,6 +71,7 @@ export class MapService {
       width: 1,
     }),
   });
+
   returnCustomZoneStyle(alertZone: boolean = false, text: string = "") {
     var strokeColor = 'rgba(0, 157, 255)'; //default blue
     var fillColor = 'rgba(0, 157, 255, 0.25)'; //default blue
@@ -117,6 +119,7 @@ export class MapService {
       return tempStyle;
     }
   }
+
   createAlertEventFeature(icon: any) {
     var textStyle = new Style({
       image: new Icon({
@@ -147,6 +150,7 @@ export class MapService {
     tempFeature.setStyle(textStyle);
     return tempFeature;
   }
+
   createIconStaffFeature(staff: any) {
     var textStyle = new Style({
       image: new Icon({
@@ -183,6 +187,7 @@ export class MapService {
     tempFeature.setStyle(textStyle);
     return tempFeature;
   }
+
   createZoneFeature(zone: any, style: any) {
     var tempZoneFeature = new Feature({
       FeatureType: 'zone',
