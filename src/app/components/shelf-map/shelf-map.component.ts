@@ -51,7 +51,6 @@ export class ShelfMapComponent implements OnInit {
     if (changes['input'].currentValue) {
       this.updatePinPositions(changes['input'].currentValue);
     }
-    console.log(changes['input'].currentValue);
   }
 
   //Side Effects Functions
