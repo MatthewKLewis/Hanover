@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MqttService } from 'src/app/services/mqtt.service';
 
 @Component({
   selector: 'app-analytics',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AnalyticsComponent implements OnInit {
 
-  constructor() { }
+  constructor(public mqttService: MqttService) { }
 
   ngOnInit(): void {
+    this.mqttService.shayanBehaviorSubject.subscribe((msg:any)=>{
+      console.log(msg);
+    })
   }
 
 }
