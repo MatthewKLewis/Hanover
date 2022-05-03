@@ -84,7 +84,7 @@ export class ShelfMapComponent implements OnInit {
       projection: projection,
       center: getCenter(extent),
       zoom: 0,
-      maxZoom: 5,
+      maxZoom: 1,
     });
     const mapElement = <HTMLElement>document.querySelector('#map');
     if (mapElement) {
