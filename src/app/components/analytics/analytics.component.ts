@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { AngularMqttService } from 'src/app/services/angularMqtt.service';
+import { Message } from 'src/app/services/angularMqtt.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +12,9 @@ import { AngularMqttService } from 'src/app/services/angularMqtt.service';
 })
 export class AnalyticsComponent implements OnInit {
 
-  lastMsg: string = "waiting..."
+  @Input() input: Message = {x: 0, y: 0, z: 0};
 
-  constructor(public angularMqttService: AngularMqttService) {
-    this.angularMqttService.subscribe('Test');
-  }
-
-  ngOnInit(): void {
-    this.angularMqttService.message$.subscribe((msg:any)=>{
-      console.log(msg);
-      this.lastMsg = msg;
-    })
-  }
-
+  constructor() {  }
+  
+  ngOnInit(): void {  }
 }

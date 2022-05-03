@@ -174,10 +174,10 @@ export class MapService {
     });
     var tempFeature = new Feature({
       geometry: new Point([
-        staff.CurrentX,
-        -staff.CurrentY,
-        staff.CurrentX,
-        -staff.CurrentY,
+        staff.x,
+        -staff.y,
+        staff.x,
+        -staff.y,
       ]),
       Name: staff.Name,
       UniqueId: staff.UniqueId,

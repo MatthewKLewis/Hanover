@@ -2,6 +2,12 @@ import { IMqttMessage, IMqttServiceOptions, MqttService } from 'ngx-mqtt';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
+export interface Message {
+  x: number,
+  y: number,
+  z: number
+}
+
 @Injectable({
   providedIn: 'root'
 })

@@ -1,5 +1,5 @@
 <div class="wrapper">
   <app-video-stream class="video-frame"></app-video-stream>
-  <app-shelf-map class="map"></app-shelf-map>
-  <app-analytics class="analytics"></app-analytics>
+  <app-shelf-map class="map" [input]="lastMsg"></app-shelf-map>
+  <app-analytics class="analytics" [input]="lastMsg"></app-analytics>
 </div>
