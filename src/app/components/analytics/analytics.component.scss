@@ -1,0 +1,17 @@
+.wrapper {
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 20% auto;
+
+    p {
+        margin: 0px 0px 5px 0px;
+        font-size: 16px;
+    }
+
+    .title {
+        grid-column: 1;
+    }
+    .info {
+        grid-column: 2;
+    }
+}

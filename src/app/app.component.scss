@@ -1,8 +1,16 @@
+* {
+    font-family: monospace;
+}
+
 .wrapper {
     margin: 0 auto;
     display: grid;
     grid-template-columns: 640px ;
     grid-template-rows: 360px 360px;
+
+    .box {
+        background-color: white;
+    }
 
     .video-frame {
         margin: 5px;
