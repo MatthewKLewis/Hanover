@@ -1,18 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { MqttService } from 'src/app/services/mqtt.service';
+import { Injectable } from '@angular/core';
+import { AngularMqttService } from 'src/app/services/angularMqtt.service';
 
+@Injectable({
+  providedIn: 'root'
+})
 @Component({
   selector: 'app-analytics',
   templateUrl: './analytics.component.html',
-  styleUrls: ['./analytics.component.scss']
+  styleUrls: ['./analytics.component.scss'],
 })
 export class AnalyticsComponent implements OnInit {
 
-  constructor(public mqttService: MqttService) { }
+  lastMsg: string = "waiting..."
+
+  constructor(public angularMqttService: AngularMqttService) {
+    this.angularMqttService.subscribe('Test');
+  }
 
   ngOnInit(): void {
-    this.mqttService.shayanBehaviorSubject.subscribe((msg:any)=>{
+    this.angularMqttService.message$.subscribe((msg:any)=>{
       console.log(msg);
+      this.lastMsg = msg;
     })
   }
 
