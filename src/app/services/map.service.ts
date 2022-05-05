@@ -162,7 +162,7 @@ export class MapService {
       text: new Text({
         textAlign: 'center',
         textBaseline: 'middle',
-        font: '12px Arial',
+        font: '18px Arial',
         text: staff.Name || "Pin",
         fill: new Fill({ color: 'black' }),
         stroke: new Stroke({ color: 'white', width: 1 }),

@@ -27,6 +27,6 @@
 
     <p class="title">Messages: </p>
     <div class="info">
-        <div *ngFor="let pin of pinsMap | keyvalue">{{pin.key}} : {{pin.value.azim}}° (Highest: {{pin.value.highest}}° Lowest: {{pin.value.lowest}}°)</div>
+        <p *ngFor="let pin of pinsMap | keyvalue">{{pin.key}} : {{pin.value.azim}}°</p>
     </div>
 </div>
