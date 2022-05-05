@@ -5,22 +5,28 @@
 
     <p class="title">Camera RTSP: </p>
     <p class="info">rtsp://192.168.5.140:9000/live</p>
-
-    <p class="title">Last Message: </p>
-    <p class="info">X: {{input.x}}, Y: {{input.y}}, Z: {{input.z}}</p>
-
+    
+    <hr>
+    
     <p class="title">Inventory</p>
     <p class="info">3</p>
-
+    
     <p class="title">Finished Goods</p>
     <p class="info">2</p>
-
+    
     <p class="title">Replenishment</p>
     <p class="info">0</p>
-
+    
     <p class="title">QA Defects</p>
     <p class="info">1</p>
-
+    
     <p class="title">Takt Time</p>
     <p class="info">0</p>
+
+    <hr>
+
+    <p class="title">Messages: </p>
+    <div class="info">
+        <div *ngFor="let pin of pinsMap | keyvalue">{{pin.key}} : {{pin.value.azim}}° (Highest: {{pin.value.highest}}° Lowest: {{pin.value.lowest}}°)</div>
+    </div>
 </div>

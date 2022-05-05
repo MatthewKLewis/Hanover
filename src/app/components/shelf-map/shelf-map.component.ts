@@ -15,6 +15,10 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Projection from 'ol/proj/Projection';
 import Layer from 'ol/layer/Layer';
+import { Message } from '../../services/angularMqtt.service'
+
+const MAP_COEFFICIENT = -200;
+const MAP_OFFSET = 420; //420 is the distance in pixels from origin-X to center-table-X
 
 @Component({
   selector: 'app-shelf-map',
@@ -27,7 +31,7 @@ export class ShelfMapComponent implements OnInit {
   @Input() inputType: string = 'error!';
 
   errorMessage: string = '';
-  mapId: number = 1;
+  mapId: number = 12734;
   mapWidth: number = 600;
   mapHeight: number = 600;
 
@@ -35,7 +39,7 @@ export class ShelfMapComponent implements OnInit {
   zoneFeatures: any[] = [];
   zoneLayer?: Layer;
 
-  pins: any[] = [{ x: 0, y: 0, z: 0 }];
+  pinsMap: Map<string, any> = new Map<string, any>();
   pinFeatures: any[] = [];
   pinLayer?: Layer;
 
@@ -56,8 +60,6 @@ export class ShelfMapComponent implements OnInit {
   //Side Effects Functions
 
   drawMap() {
-    this.zoneFeatures = this.processZones(this.zones);
-    this.pinFeatures = this.processPins(this.pins);
     var extent: any = [0, 0, this.mapWidth, -this.mapHeight];
     var projection = new Projection({
       code: 'EPSG:4326',
@@ -84,7 +86,7 @@ export class ShelfMapComponent implements OnInit {
       projection: projection,
       center: getCenter(extent),
       zoom: 0,
-      maxZoom: 1,
+      maxZoom: 2,
     });
     const mapElement = <HTMLElement>document.querySelector('#map');
     if (mapElement) {
@@ -98,17 +100,30 @@ export class ShelfMapComponent implements OnInit {
     }
   }
 
-  updatePinPositions(newPositions: any) {
-    this.map?.getAllLayers()[2].setSource(new VectorSource({ features: this.processPins([newPositions]) }))
+  updatePinPositions(newPs: any) {
+    if (newPs["tag-ble-id"] != "error") {
+      this.pinsMap.set(newPs["tag-ble-id"], newPs)
+    }
+    this.map?.getAllLayers()[2].setSource(new VectorSource({ features: this.processPins() }))
   }
 
   //I/O Functions
 
-  processPins(pins: any): any[] {
+  degreesToRadians(degrees:number) {
+    var pi = Math.PI;
+    return degrees * (pi/180);
+  }
+
+  processPins(): any[] {
     let pinFeats: any[] = []
-    for (let i = 0; i < pins.length; i++) {
-      pinFeats.push(this.mapService.createIconStaffFeature(pins[i]));
-    }
+    this.pinsMap.forEach((pin: Message)=>{
+      console.log(Math.sin(this.degreesToRadians(pin.azim)))
+      pinFeats.push(this.mapService.createIconStaffFeature({
+        x: (Math.sin(this.degreesToRadians(pin.azim)) * MAP_COEFFICIENT) + MAP_OFFSET,
+        y: pin["tag-ble-id"] == "C4CB6B7009D2" ? 100 : pin["tag-ble-id"] == "C4CB6B2222C0" ? 160 : 80,
+        Name: pin["tag-ble-id"]
+      }))
+    })
     return pinFeats;
   }
 

@@ -9,13 +9,16 @@ import { AngularMqttService, Message } from './services/angularMqtt.service';
 export class AppComponent {
 
   lastMsg: Message = {
-    x: 0,
-    y: 0,
-    z: 0,
+    "azim": 0,
+    "azim_std": 0,
+    "elev": 0,
+    "elev_std": 0,
+    "timestamp": 0,
+    "tag-ble-id": "error"
   }
 
   constructor(public angularMqttService: AngularMqttService) {
-    this.angularMqttService.subscribe('Test');
+    this.angularMqttService.subscribe();
   }
 
   ngOnInit(): void {
@@ -25,9 +28,12 @@ export class AppComponent {
   processMqttMessage(res:any) {
     if (res) {
       let returnMessage: Message = {
-        x: res.x,
-        y: res.y,
-        z: res.z,
+        "azim": res.azim,
+        "azim_std": res.azim_std,
+        "elev": res.elev,
+        "elev_std": res.elev_std,
+        "timestamp": res.timestamp,
+        "tag-ble-id": res["tag-ble-id"],
       }
       this.lastMsg = returnMessage
     }

@@ -3,9 +3,12 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 export interface Message {
-  x: number,
-  y: number,
-  z: number
+  "azim": number,
+  "azim_std": number,
+  "elev": number,
+  "elev_std": number,
+  "timestamp": number,
+  "tag-ble-id": string,
 }
 
 @Injectable({
@@ -13,7 +16,7 @@ export interface Message {
 })
 export class AngularMqttService {
 
-  topic: string = 'Test';
+  topic: string = 'aoa-test';
   subscription?: Subscription;
   MQTT_SERVICE_OPTIONS?: IMqttServiceOptions;
   message$ = new BehaviorSubject(null);
@@ -34,8 +37,8 @@ export class AngularMqttService {
     }
   }
 
-  subscribe(topic: string) {
-    this.subscription = this.subscribeToQueue(topic).subscribe(
+  subscribe() {
+    this.subscription = this.subscribeToQueue(this.topic).subscribe(
       (data: IMqttMessage) => {
         const XM = JSON.parse(data.payload.toString());
         this.message$.next(XM);
@@ -44,7 +47,6 @@ export class AngularMqttService {
   }
 
   subscribeToQueue(topic: string): Observable<IMqttMessage> {
-    let customerTopic = topic;
-    return this._mqttService.observe(customerTopic);
+    return this._mqttService.observe(topic);
   }
 }
