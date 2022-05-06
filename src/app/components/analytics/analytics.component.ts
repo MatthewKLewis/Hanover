@@ -32,7 +32,7 @@ export class AnalyticsComponent implements OnInit {
   finishedGoods: number = 0;
   goodsTowardsQuota: number = 0;
   quota: number = 100;
-  taktTime: number = 0;
+  taktTimes: number[] = [];
   timeLastTakted: number = 0;
 
   constructor() {
@@ -81,8 +81,16 @@ export class AnalyticsComponent implements OnInit {
     }
   }
 
+  averageTaktTime() {
+    if (this.taktTimes.length > 0) {
+      return this.taktTimes.reduce((a, b) => a + b) / this.taktTimes.length;
+    } else {
+      return 0;
+    }
+  }
+
   markTaktTime() {
-    this.taktTime = Date.now() - this.timeLastTakted;
+    this.taktTimes.push(Date.now() - this.timeLastTakted);
     this.timeLastTakted = Date.now();
   }
 
@@ -90,7 +98,7 @@ export class AnalyticsComponent implements OnInit {
     this.unfinishedGoods = 0;
     this.finishedGoods = 0;
     this.goodsTowardsQuota = 0;
-    this.taktTime = 60;
+    this.taktTimes = [];
 
     this.tagPositionMap.clear();
   }

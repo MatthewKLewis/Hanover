@@ -6,6 +6,9 @@
     <p class="title">Finished Goods</p>
     <p class="info">{{finishedGoods}}</p>
     
+    <p class="title">QA Defects</p>
+    <p class="info">0</p>
+    
     <hr>
     
     <p class="title">Inventory Consumed</p>
@@ -16,11 +19,13 @@
     
     <hr>
     
-    <p class="title">QA Defects</p>
-    <p class="info">0</p>
     
     <p class="title">Last Takt Time</p>
-    <p class="info">{{taktTime / 1000}}s</p>
+    <p class="info">{{taktTimes[taktTimes.length - 1] / 1000}}s ({{taktTimes.length}} recorded.)</p>
+
+    <p class="title">Avg Takt Time</p>
+    <p class="info">{{(averageTaktTime() / 1000).toFixed(2)}}s</p>
+
     
     <hr>
     

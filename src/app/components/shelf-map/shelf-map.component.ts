@@ -128,10 +128,12 @@ export class ShelfMapComponent implements OnInit {
 
   processPins(): any[] {
     let pinFeats: any[] = []
+    let index = 0;
     this.tagPositionMap.forEach((pin: Position)=>{
+      index++;
       pinFeats.push(this.mapService.createIconStaffFeature({
         x: (pin["x"] * MAP_COEFFICIENT) + MAP_OFFSET,
-        y: pin["tag-ble-id"] == "C4CB6B7009D2" ? 100 : pin["tag-ble-id"] == "C4CB6B2222C0" ? 160 : 80,
+        y: 20 + (index * 20),
         Name: pin["tag-ble-id"]
       }))
     })
