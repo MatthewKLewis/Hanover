@@ -12,6 +12,8 @@ export class AppComponent {
     "tag-ble-id" : "error",
     "x" : 0,
     "y" : 0,
+    "lastX": -1,
+    "lastY": -1,
   }
 
   constructor(public angularMqttService: AngularMqttService) {
@@ -34,8 +36,10 @@ export class AppComponent {
       }
       let tagPosition: Position = {
         "tag-ble-id" : returnMessage['tag-ble-id'],
-        "x" : (Math.sin(this.degreesToRadians(returnMessage.azim))),
+        "x" : -(Math.sin(this.degreesToRadians(returnMessage.azim))),
         "y" : 0,
+        "lastX": 0,
+        "lastY": 0,
       }
       this.lastMsg = tagPosition
     }

@@ -1,37 +1,39 @@
 <div class="wrapper">
-    <p class="title">Camera MAC: </p>
-    <p class="info">34:56:FE:A4:01:B0</p>
-
-    <p class="title">Camera RTSP: </p>
-    <p class="info">rtsp://192.168.5.140:9000/live</p>
+    
+    <p class="title">Unfinished Goods</p>
+    <p class="info">{{unfinishedGoods}}</p>
+    
+    <p class="title">Finished Goods</p>
+    <p class="info">{{finishedGoods}}</p>
     
     <hr>
     
     <p class="title">Inventory Consumed</p>
-    <p class="info">{{inventoryConsumed}}</p>
-    
-    <p class="title">Finished Goods</p>
-    <p class="info">{{finishedGoods}}</p>
-
-    <p class="title">Goods Towards Quota</p>
-    <p class="info">{{goodsTowardsQuota}}</p>
+    <p class="info">{{quota - goodsTowardsQuota}}</p>
     
     <p class="title">Quota</p>
-    <p class="info">{{quota}}</p>
+    <p class="info"> {{goodsTowardsQuota}} / {{quota}}</p>
     
     <hr>
-
+    
     <p class="title">QA Defects</p>
-    <p class="info">1</p>
-    
-    <p class="title">Takt Time</p>
     <p class="info">0</p>
-
+    
+    <p class="title">Last Takt Time</p>
+    <p class="info">{{taktTime / 1000}}s</p>
+    
     <hr>
-
-    <p class="title">Messages: </p>
-    <div class="info">
+    
+    <p class="small-title">Camera MAC: </p>
+    <p class="small-info">34:56:FE:A4:01:B0</p>
+    <p class="small-title">Camera RTSP: </p>
+    <p class="small-info">rtsp://192.168.5.140:9000/live</p>
+    <p class="small-title">AoA Messages: </p>
+    <div class="small-info">
         <p *ngFor="let pin of tagPositionMap | keyvalue">{{pin.key}} : {{pin.value.x.toFixed(2)}}, {{pin.value.y}},</p>
-    </div>
+    </div>    
 </div>
-<button (click)="reset()">RESET</button>
+
+<div class="button-row">
+    <button class="button" (click)="reset()">Reset</button>
+</div>

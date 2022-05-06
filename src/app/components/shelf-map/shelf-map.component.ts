@@ -17,7 +17,7 @@ import Projection from 'ol/proj/Projection';
 import Layer from 'ol/layer/Layer';
 import { Message, Position } from '../../services/angularMqtt.service'
 
-const MAP_COEFFICIENT = -200;
+const MAP_COEFFICIENT = 200;
 const MAP_OFFSET = 420; //420 is the distance in pixels from origin-X to center-table-X
 
 @Component({
@@ -31,6 +31,8 @@ export class ShelfMapComponent implements OnInit {
     "tag-ble-id" : "error",
     "x" : 0,
     "y" : 0,
+    "lastX": -1,
+    "lastY": -1,
   };
 
   errorMessage: string = '';
@@ -113,7 +115,6 @@ export class ShelfMapComponent implements OnInit {
         "lastX": this.tagPositionMap.get(newPs["tag-ble-id"])?.x,
         "lastY": this.tagPositionMap.get(newPs["tag-ble-id"])?.y,
       })
-      console.log(this.tagPositionMap);
     }
     this.map?.getAllLayers()[2].setSource(new VectorSource({ features: this.processPins() }))
   }

@@ -13,8 +13,8 @@ export interface Message {
 
 export interface Position {
   "tag-ble-id" : string,
-  "lastX"?: number,
-  "lastY"?: number,
+  "lastX": number,
+  "lastY": number,
   "x" : number,
   "y" : number,
 }

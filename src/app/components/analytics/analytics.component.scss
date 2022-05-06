@@ -9,17 +9,36 @@ hr {
 .wrapper {
     padding: 5px;
     display: grid;
-    grid-template-columns: 30% auto;
-
+    grid-template-columns: 35% auto;
+    
     p {
         margin: 0px 0px 5px 0px;
-        font-size: 32px;
     }
-
+    
     .title {
         grid-column: 1;
+        font-size: 28px;
     }
     .info {
         grid-column: 2;
+        font-size: 28px;
+    }
+    .small-title {
+        grid-column: 1;
+        font-size: 14px;
+    }
+    .small-info {
+        grid-column: 2;
+        font-size: 14px;
+    }
+}
+
+.button-row {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row-reverse;
+    .button {
+        padding: 10px;
+        opacity: 20%;
     }
 }
