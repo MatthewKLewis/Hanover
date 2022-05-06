@@ -1,9 +1,15 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { Injectable } from '@angular/core';
-import { Message } from 'src/app/services/angularMqtt.service';
+import { Message, Position } from 'src/app/services/angularMqtt.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 @Component({
   selector: 'app-analytics',
@@ -11,31 +17,56 @@ import { Message } from 'src/app/services/angularMqtt.service';
   styleUrls: ['./analytics.component.scss'],
 })
 export class AnalyticsComponent implements OnInit {
-
-  @Input() input: Message = {
-    "azim": 0,
-      "azim_std": 0,
-      "elev": 0,
-      "elev_std": 0,
-      "timestamp": 0,
-      "tag-ble-id": "error"
+  @Input() input: Position = {
+    "tag-ble-id": 'error',
+    "x": 0,
+    "y": 0,
   };
 
-  pinsMap: Map<string, any> = new Map<string, any>();
+  tagPositionMap: Map<string, any> = new Map<string, any>();
 
-  constructor() {  }
-  
-  ngOnInit(): void {  }
+  //stats
+  unfinishedGoods: number = 0;
+  finishedGoods: number = 0;
+
+  goodsTowardsQuota: number = 0;
+  quota: number = 0;
+
+  inventoryConsumed: number = 0;
+  taktTime: number = 60;
+
+  constructor() {}
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.crunchStats();
+    }, 1000);
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['input'].currentValue) {
+    if (changes['input']) {
       this.updatePinPositions(changes['input'].currentValue);
+    } else {
+      //console.log('change to something else');
     }
   }
 
+  crunchStats() {}
+
   updatePinPositions(newPs: any) {
-    if (newPs["tag-ble-id"] != "error") {
-      this.pinsMap.set(newPs["tag-ble-id"], {...newPs, highest: 0, lowest: 360})
+    if (newPs['tag-ble-id'] != 'error') {
+      this.tagPositionMap.set(newPs['tag-ble-id'], newPs);
+      //console.log(this.tagPositionMap);
     }
+  }
+
+  reset() {
+    this.unfinishedGoods = 0;
+    this.finishedGoods = 0;
+    this.goodsTowardsQuota = 0;
+    this.inventoryConsumed = 0;
+    this.taktTime = 60;
+
+    this.tagPositionMap.clear();
   }
 }

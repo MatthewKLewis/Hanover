@@ -11,6 +11,14 @@ export interface Message {
   "tag-ble-id": string,
 }
 
+export interface Position {
+  "tag-ble-id" : string,
+  "lastX"?: number,
+  "lastY"?: number,
+  "x" : number,
+  "y" : number,
+}
+
 @Injectable({
   providedIn: 'root'
 })

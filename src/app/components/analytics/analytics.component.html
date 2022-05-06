@@ -1,5 +1,4 @@
 <div class="wrapper">
-
     <p class="title">Camera MAC: </p>
     <p class="info">34:56:FE:A4:01:B0</p>
 
@@ -8,15 +7,20 @@
     
     <hr>
     
-    <p class="title">Inventory</p>
-    <p class="info">3</p>
+    <p class="title">Inventory Consumed</p>
+    <p class="info">{{inventoryConsumed}}</p>
     
     <p class="title">Finished Goods</p>
-    <p class="info">2</p>
+    <p class="info">{{finishedGoods}}</p>
+
+    <p class="title">Goods Towards Quota</p>
+    <p class="info">{{goodsTowardsQuota}}</p>
     
-    <p class="title">Replenishment</p>
-    <p class="info">0</p>
+    <p class="title">Quota</p>
+    <p class="info">{{quota}}</p>
     
+    <hr>
+
     <p class="title">QA Defects</p>
     <p class="info">1</p>
     
@@ -27,6 +31,7 @@
 
     <p class="title">Messages: </p>
     <div class="info">
-        <p *ngFor="let pin of pinsMap | keyvalue">{{pin.key}} : {{pin.value.azim}}°</p>
+        <p *ngFor="let pin of tagPositionMap | keyvalue">{{pin.key}} : {{pin.value.x.toFixed(2)}}, {{pin.value.y}},</p>
     </div>
 </div>
+<button (click)="reset()">RESET</button>

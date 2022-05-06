@@ -15,7 +15,7 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Projection from 'ol/proj/Projection';
 import Layer from 'ol/layer/Layer';
-import { Message } from '../../services/angularMqtt.service'
+import { Message, Position } from '../../services/angularMqtt.service'
 
 const MAP_COEFFICIENT = -200;
 const MAP_OFFSET = 420; //420 is the distance in pixels from origin-X to center-table-X
@@ -26,9 +26,12 @@ const MAP_OFFSET = 420; //420 is the distance in pixels from origin-X to center-
   styleUrls: ['./shelf-map.component.scss'],
 })
 export class ShelfMapComponent implements OnInit {
-  @Input() input: any;
-  @Input() customerId: number = 0;
-  @Input() inputType: string = 'error!';
+
+  @Input() input: Position = {
+    "tag-ble-id" : "error",
+    "x" : 0,
+    "y" : 0,
+  };
 
   errorMessage: string = '';
   mapId: number = 12734;
@@ -39,7 +42,7 @@ export class ShelfMapComponent implements OnInit {
   zoneFeatures: any[] = [];
   zoneLayer?: Layer;
 
-  pinsMap: Map<string, any> = new Map<string, any>();
+  tagPositionMap: Map<string, Position> = new Map<string, Position>();
   pinFeatures: any[] = [];
   pinLayer?: Layer;
 
@@ -52,8 +55,11 @@ export class ShelfMapComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['input'].currentValue) {
+    if (changes['input']) {
       this.updatePinPositions(changes['input'].currentValue);
+    }
+    else {
+      //console.log('change to something else');
     }
   }
 
@@ -102,7 +108,12 @@ export class ShelfMapComponent implements OnInit {
 
   updatePinPositions(newPs: any) {
     if (newPs["tag-ble-id"] != "error") {
-      this.pinsMap.set(newPs["tag-ble-id"], newPs)
+      this.tagPositionMap.set(newPs["tag-ble-id"], {
+        ...newPs,
+        "lastX": this.tagPositionMap.get(newPs["tag-ble-id"])?.x,
+        "lastY": this.tagPositionMap.get(newPs["tag-ble-id"])?.y,
+      })
+      console.log(this.tagPositionMap);
     }
     this.map?.getAllLayers()[2].setSource(new VectorSource({ features: this.processPins() }))
   }
@@ -116,10 +127,9 @@ export class ShelfMapComponent implements OnInit {
 
   processPins(): any[] {
     let pinFeats: any[] = []
-    this.pinsMap.forEach((pin: Message)=>{
-      console.log(Math.sin(this.degreesToRadians(pin.azim)))
+    this.tagPositionMap.forEach((pin: Position)=>{
       pinFeats.push(this.mapService.createIconStaffFeature({
-        x: (Math.sin(this.degreesToRadians(pin.azim)) * MAP_COEFFICIENT) + MAP_OFFSET,
+        x: (pin["x"] * MAP_COEFFICIENT) + MAP_OFFSET,
         y: pin["tag-ble-id"] == "C4CB6B7009D2" ? 100 : pin["tag-ble-id"] == "C4CB6B2222C0" ? 160 : 80,
         Name: pin["tag-ble-id"]
       }))

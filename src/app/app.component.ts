@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AngularMqttService, Message } from './services/angularMqtt.service';
+import { AngularMqttService, Message, Position } from './services/angularMqtt.service';
 
 @Component({
   selector: 'app-root',
@@ -8,13 +8,10 @@ import { AngularMqttService, Message } from './services/angularMqtt.service';
 })
 export class AppComponent {
 
-  lastMsg: Message = {
-    "azim": 0,
-    "azim_std": 0,
-    "elev": 0,
-    "elev_std": 0,
-    "timestamp": 0,
-    "tag-ble-id": "error"
+  lastMsg: Position = {
+    "tag-ble-id" : "error",
+    "x" : 0,
+    "y" : 0,
   }
 
   constructor(public angularMqttService: AngularMqttService) {
@@ -35,11 +32,21 @@ export class AppComponent {
         "timestamp": res.timestamp,
         "tag-ble-id": res["tag-ble-id"],
       }
-      this.lastMsg = returnMessage
+      let tagPosition: Position = {
+        "tag-ble-id" : returnMessage['tag-ble-id'],
+        "x" : (Math.sin(this.degreesToRadians(returnMessage.azim))),
+        "y" : 0,
+      }
+      this.lastMsg = tagPosition
     }
     else {
       console.log('message$ update without response')
     }
+  }
+
+  degreesToRadians(degrees:number) {
+    var pi = Math.PI;
+    return degrees * (pi/180);
   }
  
 }
