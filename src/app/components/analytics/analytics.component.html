@@ -1,4 +1,8 @@
 <div class="wrapper">
+
+    <div class="button-row">
+        <button class="button" (click)="reset()">Reset</button>
+    </div>
     
     <p class="title">Unfinished Goods</p>
     <p class="info">{{unfinishedGoods}}</p>
@@ -17,17 +21,7 @@
     <p class="title">Quota</p>
     <p class="info"> {{goodsTowardsQuota}} / {{quota}}</p>
     
-    <hr>
-    
-    
-    <p class="title">Last Takt Time</p>
-    <p class="info">{{taktTimes[taktTimes.length - 1] / 1000}}s ({{taktTimes.length}} recorded.)</p>
-
-    <p class="title">Avg Takt Time</p>
-    <p class="info">{{(averageTaktTime() / 1000).toFixed(2)}}s</p>
-
-    
-    <hr>
+    <hr>    
     
     <p class="small-title">Camera MAC: </p>
     <p class="small-info">34:56:FE:A4:01:B0</p>
@@ -36,9 +30,28 @@
     <p class="small-title">AoA Messages: </p>
     <div class="small-info">
         <p *ngFor="let pin of tagPositionMap | keyvalue">{{pin.key}} : {{pin.value.x.toFixed(2)}}, {{pin.value.y}},</p>
-    </div>    
-</div>
+    </div>
 
-<div class="button-row">
-    <button class="button" (click)="reset()">Reset</button>
+    <p class="title">Last Takt Time</p>
+    <p class="info" *ngIf="taktTimes[0].series.length > 1">{{taktTimes[0].series[taktTimes[0].series.length - 1].value}}s ({{taktTimes[0].series.length}} recorded.)</p>
+
+    <p class="title">Avg Takt Time</p>
+    <p class="info">{{(averageTaktTime() / 1000).toFixed(2)}}s</p>
+
+    <hr>
+
+    <ngx-charts-line-chart class="line-chart"
+        [scheme]="colorScheme"
+        [legend]="false"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [xAxisLabel]="'Time'"
+        [yAxisLabel]="'Time (Seconds)'"
+        [timeline]="true"
+        [results]="taktTimes"
+        >
+    </ngx-charts-line-chart>
+
 </div>
