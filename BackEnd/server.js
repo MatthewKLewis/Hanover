@@ -9,6 +9,8 @@ const handler = proxy({
   verbose: true,
 });
 
+app.use('/', express.static("dist/Hanover"))
+
 // the endpoint our RTSP uses
 app.ws("/api/stream", handler);
 

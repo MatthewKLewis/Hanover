@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "startAll": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -29,6 +30,7 @@
     "rxjs": "~6.6.0",
     "streamedian": "^0.3.13",
     "tslib": "^2.1.0",
+    "util": "^0.12.4",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
