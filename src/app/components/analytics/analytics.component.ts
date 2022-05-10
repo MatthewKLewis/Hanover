@@ -6,7 +6,10 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Message, Position } from 'src/app/services/angularMqtt.service';
+import { format, sub } from 'date-fns';
+
 
 @Injectable({
   providedIn: 'root',
@@ -32,8 +35,19 @@ export class AnalyticsComponent implements OnInit {
   finishedGoods: number = 0;
   goodsTowardsQuota: number = 0;
   quota: number = 100;
-  taktTimes: number[] = [];
   timeLastTakted: number = 0;
+
+  update$: Subject<any> = new Subject();
+
+  taktTimes: any = [
+    {
+      name: "Takt Time",
+      series: []
+    }
+  ]
+  colorScheme: any = {
+    domain: ['#E44D25', '#7aa3e5', '#a8385d', '#aae3f5']
+  };
 
   constructor() {
     this.timeLastTakted = Date.now();
@@ -82,15 +96,21 @@ export class AnalyticsComponent implements OnInit {
   }
 
   averageTaktTime() {
-    if (this.taktTimes.length > 0) {
-      return this.taktTimes.reduce((a, b) => a + b) / this.taktTimes.length;
+    if (this.taktTimes[0].series.length > 0) {
+      //console.log(this.taktTimes[0].series[1].value)
+      return 0//this.taktTimes[0].series.reduce((a:any, b:any) => a.value + b.value);
     } else {
       return 0;
     }
   }
 
   markTaktTime() {
-    this.taktTimes.push(Date.now() - this.timeLastTakted);
+    this.taktTimes[0].series.push({
+      value: (Date.now() - this.timeLastTakted) / 1000,
+      name: format(Date.now(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"),
+    });
+    console.log(this.taktTimes)
+    this.taktTimes = [...this.taktTimes];
     this.timeLastTakted = Date.now();
   }
 

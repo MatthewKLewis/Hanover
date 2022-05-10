@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { IMqttServiceOptions, MqttModule } from 'ngx-mqtt';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +26,9 @@ const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    NgxChartsModule,
+    BrowserAnimationsModule,
+    BrowserModule,
     MqttModule.forRoot(MQTT_SERVICE_OPTIONS),
   ],
   providers: [],
