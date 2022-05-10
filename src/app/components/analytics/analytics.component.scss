@@ -1,32 +1,29 @@
-hr {
-    width: 100%;
-    border: 0px;
-    height: 1px;
-    background-color: #e0e0e0;
-    grid-column: 1 / 3;
-}
-
 .wrapper {
-    padding: 5px;
+    padding: 10px;
     display: grid;
-    grid-template-columns: 35% auto;
+    grid-template-columns: 40% 60%;
     
     p {
         margin: 0px 0px 5px 0px;
     }
 
+    br {
+        margin-top: 10px;
+    }
+
     progress {
         grid-column: 1 / 3;
         width: 800px;
+        margin: 10px 0px 10px 0px;
     }
     
     .title {
         grid-column: 1;
-        font-size: 28px;
+        font-size: 24px;
     }
     .info {
         grid-column: 2;
-        font-size: 28px;
+        font-size: 24px;
     }
     .small-title {
         grid-column: 1;
@@ -36,6 +33,10 @@ hr {
         grid-column: 2;
         font-size: 14px;
     }
+}
+
+.subdued {
+    color: rgb(137, 212, 200);
 }
 
 .button-row {
@@ -53,5 +54,6 @@ hr {
 
 .line-chart {
     color: white;
+    border: none;
     width: 100%;
 }
