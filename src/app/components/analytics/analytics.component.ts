@@ -46,7 +46,7 @@ export class AnalyticsComponent implements OnInit {
     }
   ]
   colorScheme: any = {
-    domain: ['#5AA454', '#E44D25', '#7aa3e5', '#a8385d', '#aae3f5']
+    domain: ['#E44D25', '#7aa3e5', '#a8385d', '#aae3f5']
   };
 
   constructor() {

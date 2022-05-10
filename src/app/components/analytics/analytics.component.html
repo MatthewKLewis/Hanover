@@ -20,6 +20,8 @@
     
     <p class="title">Quota</p>
     <p class="info"> {{goodsTowardsQuota}} / {{quota}}</p>
+
+    <progress [max]="quota" [value]="goodsTowardsQuota"></progress>
     
     <hr>    
     
@@ -41,6 +43,7 @@
     <hr>
 
     <ngx-charts-line-chart class="line-chart"
+        [view]="[800, 450]"
         [scheme]="colorScheme"
         [legend]="false"
         [showXAxisLabel]="true"
@@ -51,7 +54,7 @@
         [yAxisLabel]="'Time (Seconds)'"
         [timeline]="true"
         [results]="taktTimes"
-        >
+    >
     </ngx-charts-line-chart>
 
 </div>
