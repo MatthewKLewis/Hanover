@@ -12,6 +12,17 @@ import GeometryLayout from 'ol/geom/GeometryLayout';
 import IconAnchorUnits from 'ol/style/IconAnchorUnits';
 import { Observable } from 'rxjs';
 
+const ICON_LIST = [
+  "light_blue_.png",
+  //"light_green_.png",
+  //"light_yellow_.png",
+  //"pink_.png",
+  //"purple_.png",
+  //"square_dark_blue_.png",
+  //"square_dark_green_.png",
+  "square_light_green_.png",
+]
+
 @Injectable({
   providedIn: 'root',
 })
@@ -41,36 +52,36 @@ export class MapService {
   }
 
   // RENDERING
-  infraIconStyle = new Style({
-    image: new Icon({
-      anchor: [0.5, 0.5],
-      anchorXUnits: IconAnchorUnits.FRACTION,
-      anchorYUnits: IconAnchorUnits.FRACTION,
-      src: './assets/images/ICON.png',
-    }),
-  });
-  infraIconStyle_New = new Style({
-    image: new Icon({
-      anchor: [0.5, 0.5],
-      anchorXUnits: IconAnchorUnits.FRACTION,
-      anchorYUnits: IconAnchorUnits.FRACTION,
-      src: './assets/images/ICON_NEW.png',
-    }),
-  });
-  invisibleIconStyle = new Style({
-    image: new Icon({
-      anchor: [0.5, 0.5],
-      anchorXUnits: IconAnchorUnits.FRACTION,
-      anchorYUnits: IconAnchorUnits.FRACTION,
-      src: './assets/images/invis.png',
-    }),
-  });
-  drawStyle = new Style({
-    stroke: new Stroke({
-      color: 'rgba(0, 0, 0, 0)',
-      width: 1,
-    }),
-  });
+  // infraIconStyle = new Style({
+  //   image: new Icon({
+  //     anchor: [0.5, 0.5],
+  //     anchorXUnits: IconAnchorUnits.FRACTION,
+  //     anchorYUnits: IconAnchorUnits.FRACTION,
+  //     src: './assets/images/ICON.png',
+  //   }),
+  // });
+  // infraIconStyle_New = new Style({
+  //   image: new Icon({
+  //     anchor: [0.5, 0.5],
+  //     anchorXUnits: IconAnchorUnits.FRACTION,
+  //     anchorYUnits: IconAnchorUnits.FRACTION,
+  //     src: './assets/images/ICON_NEW.png',
+  //   }),
+  // });
+  // invisibleIconStyle = new Style({
+  //   image: new Icon({
+  //     anchor: [0.5, 0.5],
+  //     anchorXUnits: IconAnchorUnits.FRACTION,
+  //     anchorYUnits: IconAnchorUnits.FRACTION,
+  //     src: './assets/images/invis.png',
+  //   }),
+  // });
+  // drawStyle = new Style({
+  //   stroke: new Stroke({
+  //     color: 'rgba(0, 0, 0, 0)',
+  //     width: 1,
+  //   }),
+  // });
 
   returnCustomZoneStyle(alertZone: boolean = false, text: string = "") {
     var strokeColor = 'rgba(0, 157, 255)'; //default blue
@@ -120,54 +131,23 @@ export class MapService {
     }
   }
 
-  createAlertEventFeature(icon: any) {
-    var textStyle = new Style({
-      image: new Icon({
-        anchor: [0.5, 0.5],
-        anchorXUnits: IconAnchorUnits.FRACTION,
-        anchorYUnits: IconAnchorUnits.FRACTION,
-        src: './assets/images/alert.gif',
-      }),
-      text: new Text({
-        textAlign: 'center',
-        textBaseline: 'middle',
-        font: '12px Arial',
-        text: icon.Name,
-        fill: new Fill({ color: 'black' }),
-        stroke: new Stroke({ color: 'white', width: 1 }),
-        offsetX: 0,
-        offsetY: 0,
-        placement: 'POINT',
-        overflow: false,
-      }),
-    });
-    var tempFeature = new Feature({
-      geometry: new Point([icon.X, icon.Y, icon.X, icon.Y]),
-      Name: icon.Name,
-      UniqueId: icon.UniqueId,
-      Status: icon.Status,
-    });
-    tempFeature.setStyle(textStyle);
-    return tempFeature;
-  }
-
   createIconStaffFeature(staff: any) {
     var textStyle = new Style({
       image: new Icon({
         anchor: [0.5, 0.5],
         anchorXUnits: IconAnchorUnits.FRACTION,
         anchorYUnits: IconAnchorUnits.FRACTION,
-        src: staff.Icon || './assets/icons/star.png',
+        src: './assets/icons/' + ICON_LIST[Math.floor(Math.random() * ICON_LIST.length)],
       }),
       text: new Text({
         textAlign: 'center',
-        textBaseline: 'middle',
+        textBaseline: 'bottom',
         font: '18px Arial',
         text: staff.Name || "Pin",
         fill: new Fill({ color: 'black' }),
         stroke: new Stroke({ color: 'white', width: 1 }),
         offsetX: 0,
-        offsetY: 0,
+        offsetY: -5,
         placement: 'POINT',
         overflow: false,
       }),
