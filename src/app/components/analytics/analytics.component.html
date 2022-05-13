@@ -15,8 +15,8 @@
     
     <br>
     
-    <p class="title">Inventory Consumed</p>
-    <p class="info">{{quota - goodsTowardsQuota}}</p>
+    <p class="title">Inventory Remaining</p>
+    <p class="info">{{quota - goodsTowardsQuota > 0 ? quota - goodsTowardsQuota : 0}}</p>
     
     <p class="title">Quota</p>
     <p class="info"> {{goodsTowardsQuota}} / {{quota}}</p>

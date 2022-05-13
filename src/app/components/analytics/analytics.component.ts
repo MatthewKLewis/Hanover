@@ -109,7 +109,6 @@ export class AnalyticsComponent implements OnInit {
       value: (Date.now() - this.timeLastTakted) / 1000,
       name: format(Date.now(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"),
     });
-    console.log(this.taktTimes)
     this.taktTimes = [...this.taktTimes];
     this.timeLastTakted = Date.now();
   }
@@ -118,8 +117,6 @@ export class AnalyticsComponent implements OnInit {
     this.unfinishedGoods = 0;
     this.finishedGoods = 0;
     this.goodsTowardsQuota = 0;
-    this.taktTimes = [];
-
     this.tagPositionMap.clear();
   }
 }
