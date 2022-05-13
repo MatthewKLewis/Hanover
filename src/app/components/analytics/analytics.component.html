@@ -4,14 +4,11 @@
         <button class="button" (click)="reset()">Reset</button>
     </div>
     
-    <p class="title subdued">Unfinished Goods</p>
-    <p class="info subdued">{{unfinishedGoods}}</p>
+    <p class="title large">Unfinished Goods</p>
+    <p class="info large">{{unfinishedGoods}}</p>
     
-    <p class="title subdued">Finished Goods</p>
-    <p class="info subdued">{{finishedGoods}}</p>
-
-    <p class="title subdued">QA Defects</p>
-    <p class="info subdued">0</p>
+    <p class="title large">Finished Goods</p>
+    <p class="info large">{{finishedGoods}}</p>
     
     <br>
     
@@ -21,7 +18,14 @@
     <p class="title">Quota</p>
     <p class="info"> {{goodsTowardsQuota}} / {{quota}}</p>
     
-    <progress [max]="quota" [value]="goodsTowardsQuota"></progress>
+    <!-- <progress [max]="quota" [value]="goodsTowardsQuota"></progress> -->
+
+    <ngx-charts-pie-chart
+        [view]="[200, 200]"
+        [scheme]="colorScheme"
+        [results]="pieData"
+    >
+    </ngx-charts-pie-chart>
     
     <br>
 

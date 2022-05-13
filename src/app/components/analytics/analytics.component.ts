@@ -48,6 +48,16 @@ export class AnalyticsComponent implements OnInit {
   colorScheme: any = {
     domain: ['#E44D25', '#7aa3e5', '#a8385d', '#aae3f5']
   };
+  pieData: any = [
+    {
+      "name": "Complete",
+      "value": 0,
+    },
+    {
+      "name": "Inventory",
+      "value": 100,
+    },
+  ]
 
   constructor() {
     this.timeLastTakted = Date.now();
@@ -92,13 +102,17 @@ export class AnalyticsComponent implements OnInit {
       
       this.unfinishedGoods = newUnfinGoods;
       this.finishedGoods = newFinGoods;
+
+      this.pieData[0].value = this.goodsTowardsQuota;
+      this.pieData[1].value = this.quota - this.goodsTowardsQuota;
+
     }
   }
 
   averageTaktTime() {
     if (this.taktTimes[0].series.length > 0) {
       //console.log(this.taktTimes[0].series[1].value)
-      return 0//this.taktTimes[0].series.reduce((a:any, b:any) => a.value + b.value);
+      return 0 //this.taktTimes[0].series.reduce((a:any, b:any) => a.value + b.value);
     } else {
       return 0;
     }

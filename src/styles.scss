@@ -1,2 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./open_layers_styles.scss";
+
+@font-face {
+    font-family: "Segoe UI Regular";
+    font-style: normal;
+    font-weight: normal;
+    src: local("Segoe UI Regular"), url("./assets/fonts/SegoeUI.woff") format("woff");
+}

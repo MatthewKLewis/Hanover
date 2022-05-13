@@ -1,20 +1,16 @@
 * {
-    font-family: 'Calibri';
-    color: white;
+    font-family: 'Segoe UI Regular';
 }
 
 .wrapper {
     margin: 0 auto;
     display: grid;
-    grid-template-rows: 60px 538px 300px;
+    grid-template-rows: 84px 538px 260px;
     grid-template-columns: 958px auto;
 
     .box {
         margin: 5px;
-        background: rgba( 255, 255, 255, 0.25 );
-        box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-        backdrop-filter: blur( 4px );
-        -webkit-backdrop-filter: blur( 4px );
+        box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
         border: 1px solid rgba( 255, 255, 255, 0.18 );
     }
 
@@ -24,6 +20,7 @@
         padding: 5px;
         border-radius: 10px;
 
+        background-color: #1565c0;
     }
     .video-frame {
         grid-row: 2;
