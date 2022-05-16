@@ -156,11 +156,14 @@ export class AnalyticsComponent implements OnInit {
 
   markTaktTime() {
     let latestTakt = (Date.now() - this.timeLastTakted) / 1000
-
     this.taktTimes[0].series.push({
       value: latestTakt,
       name: format(Date.now(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"),
     });
+
+    if (this.taktTimes[0].series.length > 20) {
+      this.taktTimes[0].series = this.taktTimes[0].series.slice(this.taktTimes[0].length - 20, this.taktTimes[0].length)
+    }
     this.taktTimes = [...this.taktTimes];
 
     this.taktAverages[0].value = latestTakt //last
