@@ -2,49 +2,35 @@
     padding: 10px;
     display: grid;
     grid-template-columns: 40% 60%;
+    font-size: 12px;
     
     p {
         margin: 0px 0px 5px 0px;
     }
 
-    br {
-        margin-top: 10px;
-    }
+    .section {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 15% 15% 15% 15% ;
 
-    progress {
-        grid-column: 1 / 3;
-        width: 800px;
-        margin: 10px 0px 10px 0px;
+        .title {
+            grid-column: 1;
+        }
+        .info {
+            grid-column: 2;
+        }
     }
-    
-    .title {
-        grid-column: 1;
-    }
-    .info {
-        grid-column: 2;
-    }
-    .small-title {
-        grid-column: 1;
-    }
-    .small-info {
-        grid-column: 2;
-    }
-}
-
-.large {
-    font-size: 18px;
 }
 
 .button-row {
     position: absolute;
     right: 26px;
-    grid-column: 1 / 3;
     display: flex;
     flex-direction: row-reverse;
 
     .button {
         padding: 10px 20px 10px 20px;
-        background-color: #1565c0;
+        background-color: #c01515;
         border: none;
         color: white;
         border-radius: 10px;

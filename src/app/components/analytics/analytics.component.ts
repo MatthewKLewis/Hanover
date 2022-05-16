@@ -34,7 +34,8 @@ export class AnalyticsComponent implements OnInit {
   unfinishedGoods: number = 0;
   finishedGoods: number = 0;
   goodsTowardsQuota: number = 0;
-  quota: number = 100;
+  quota: number = 20;
+  inventoryRemaining: number = 50;
   timeLastTakted: number = 0;
 
   update$: Subject<any> = new Subject();
@@ -55,7 +56,7 @@ export class AnalyticsComponent implements OnInit {
     },
     {
       "name": "Inventory",
-      "value": 100,
+      "value": this.inventoryRemaining,
     },
   ]
 
