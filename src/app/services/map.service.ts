@@ -23,9 +23,15 @@ const ICON_LIST = [
   "square_light_green_.png",
 ]
 const ICON_MAP = new Map<string, string>();
+ICON_MAP.set('C4CB6B702D19', "square_light_green_.png");
+ICON_MAP.set('C4CB6B7021F4', "square_light_green_.png");
+ICON_MAP.set('C4CB6B70303A', "square_orange_.png");
+ICON_MAP.set('C4CB6B702D2F', "light_blue_.png");
+ICON_MAP.set('C4CB6B7020D1', "light_blue_.png");
 ICON_MAP.set('C4CB6B701E8F', "light_blue_.png");
-ICON_MAP.set('C4CB6B703020', "light_blue_.png");
-ICON_MAP.set('C4CB6B701FBD', "square_light_green_.png");
+ICON_MAP.set('C4CB6B7009D2', "triangle_yellow_.png");
+ICON_MAP.set('C4CB6B701FBD', "triangle_yellow_.png");
+ICON_MAP.set('C4CB6B703020', "triangle_yellow_.png");
 
 
 @Injectable({
