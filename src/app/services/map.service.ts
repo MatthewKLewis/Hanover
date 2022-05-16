@@ -22,6 +22,11 @@ const ICON_LIST = [
   //"square_dark_green_.png",
   "square_light_green_.png",
 ]
+const ICON_MAP = new Map<string, string>();
+ICON_MAP.set('C4CB6B701E8F', "light_blue_.png");
+ICON_MAP.set('C4CB6B703020', "light_blue_.png");
+ICON_MAP.set('C4CB6B701FBD', "square_light_green_.png");
+
 
 @Injectable({
   providedIn: 'root',
@@ -50,38 +55,6 @@ export class MapService {
       {}
     );
   }
-
-  // RENDERING
-  // infraIconStyle = new Style({
-  //   image: new Icon({
-  //     anchor: [0.5, 0.5],
-  //     anchorXUnits: IconAnchorUnits.FRACTION,
-  //     anchorYUnits: IconAnchorUnits.FRACTION,
-  //     src: './assets/images/ICON.png',
-  //   }),
-  // });
-  // infraIconStyle_New = new Style({
-  //   image: new Icon({
-  //     anchor: [0.5, 0.5],
-  //     anchorXUnits: IconAnchorUnits.FRACTION,
-  //     anchorYUnits: IconAnchorUnits.FRACTION,
-  //     src: './assets/images/ICON_NEW.png',
-  //   }),
-  // });
-  // invisibleIconStyle = new Style({
-  //   image: new Icon({
-  //     anchor: [0.5, 0.5],
-  //     anchorXUnits: IconAnchorUnits.FRACTION,
-  //     anchorYUnits: IconAnchorUnits.FRACTION,
-  //     src: './assets/images/invis.png',
-  //   }),
-  // });
-  // drawStyle = new Style({
-  //   stroke: new Stroke({
-  //     color: 'rgba(0, 0, 0, 0)',
-  //     width: 1,
-  //   }),
-  // });
 
   returnCustomZoneStyle(alertZone: boolean = false, text: string = "") {
     var strokeColor = 'rgba(0, 157, 255)'; //default blue
@@ -137,7 +110,7 @@ export class MapService {
         anchor: [0.5, 0.5],
         anchorXUnits: IconAnchorUnits.FRACTION,
         anchorYUnits: IconAnchorUnits.FRACTION,
-        src: './assets/icons/' + ICON_LIST[Math.floor(Math.random() * ICON_LIST.length)],
+        src: './assets/icons/' + ICON_MAP.get(staff.Name),
       }),
       text: new Text({
         textAlign: 'center',

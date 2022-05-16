@@ -20,6 +20,11 @@ import { format, sub } from 'date-fns';
   styleUrls: ['./analytics.component.scss'],
 })
 export class AnalyticsComponent implements OnInit {
+
+  colorScheme: any = {
+    domain: ['#E44D25', '#7aa3e5', '#a8385d', '#aae3f5']
+  };
+
   @Input() input: Position = {
     "tag-ble-id": 'error',
     "x": 0,
@@ -40,19 +45,15 @@ export class AnalyticsComponent implements OnInit {
 
   update$: Subject<any> = new Subject();
 
-  taktTimes: any = [
-    {
-      name: "Takt Time",
-      series: []
-    }
-  ]
-  colorScheme: any = {
-    domain: ['#E44D25', '#7aa3e5', '#a8385d', '#aae3f5']
-  };
+  // COMPLETION STATS
   pieData: any = [
     {
       "name": "Complete",
       "value": 0,
+    },
+    {
+      "name": "Quota",
+      "value": this.quota,
     },
     {
       "name": "Inventory",
@@ -60,6 +61,24 @@ export class AnalyticsComponent implements OnInit {
     },
   ]
 
+  // TAKT STATS
+  taktTimes: any = [
+    {
+      name: "Takt Times",
+      series: []
+    }
+  ]
+  taktAverages: any = [
+    {
+      "name": "Last Takt",
+      "value": 0,
+    },
+    {
+      "name": "Average Takt",
+      "value": 0,
+    },
+  ]
+  
   constructor() {
     this.timeLastTakted = Date.now();
   }
@@ -68,6 +87,7 @@ export class AnalyticsComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['input']) {
+      //console.log(changes['input'].currentValue["tag-ble-id"]); //get tag ids
       this.updatePinPositions(changes['input'].currentValue);
     } else {
       //console.log('change to something else');
@@ -106,32 +126,88 @@ export class AnalyticsComponent implements OnInit {
 
       this.pieData[0].value = this.goodsTowardsQuota;
       this.pieData[1].value = this.quota - this.goodsTowardsQuota;
+      this.pieData[2].value = this.inventoryRemaining - this.goodsTowardsQuota;
+      this.pieData = [...this.pieData];
 
     }
   }
 
   averageTaktTime() {
     if (this.taktTimes[0].series.length > 0) {
-      //console.log(this.taktTimes[0].series[1].value)
-      return 0 //this.taktTimes[0].series.reduce((a:any, b:any) => a.value + b.value);
-    } else {
+      var total = 0;
+      var avg = 0;
+      if (this.taktTimes[0].series.length < 20) {
+        for(var i = 0; i < this.taktTimes[0].series.length; i++) {
+            total += this.taktTimes[0].series[i].value;
+            var avg = total / this.taktTimes[0].series.length;
+          }
+        } else {
+          for(var i = this.taktTimes[0].series.length - 20; i < this.taktTimes[0].series.length; i++) {
+            total += this.taktTimes[0].series[i].value;
+            var avg = total / 20;
+        }
+      }
+      return avg;
+    } 
+    else {
       return 0;
     }
   }
 
   markTaktTime() {
+    let latestTakt = (Date.now() - this.timeLastTakted) / 1000
+
     this.taktTimes[0].series.push({
-      value: (Date.now() - this.timeLastTakted) / 1000,
+      value: latestTakt,
       name: format(Date.now(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"),
     });
     this.taktTimes = [...this.taktTimes];
+
+    this.taktAverages[0].value = latestTakt //last
+    this.taktAverages[1].value = this.averageTaktTime() //avg
+    this.taktAverages = [...this.taktAverages];
+
     this.timeLastTakted = Date.now();
   }
 
   reset() {
-    this.unfinishedGoods = 0;
-    this.finishedGoods = 0;
-    this.goodsTowardsQuota = 0;
-    this.tagPositionMap.clear();
+    location.reload();
+    // this.unfinishedGoods = 0;
+    // this.finishedGoods = 0;
+    // this.goodsTowardsQuota = 0;
+    // this.tagPositionMap.clear();
+
+    // this.taktTimes  = [
+    //   {
+    //     name: "Takt Times",
+    //     series: []
+    //   }
+    // ]
+
+    // this.taktAverages = [
+    //   {
+    //     "name": "Last Takt",
+    //     "value": 0,
+    //   },
+    //   {
+    //     "name": "Average Takt",
+    //     "value": 0,
+    //   },
+    // ]
+
+    // this.pieData = [
+    //   {
+    //     "name": "Complete",
+    //     "value": 0,
+    //   },
+    //   {
+    //     "name": "Quota",
+    //     "value": this.inventoryRemaining,
+    //   },
+    //   {
+    //     "name": "Inventory",
+    //     "value": this.inventoryRemaining,
+    //   },
+    // ]
   }
 }

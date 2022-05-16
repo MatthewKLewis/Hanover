@@ -4,21 +4,6 @@
         <button class="button" (click)="reset()">Reset</button>
     </div>
 
-    <!-- <div 
-        style="grid-column: 1; grid-row: 1;" 
-        class="section"
-    >
-        <br>
-        <p class="title">Unfinished Goods</p>
-        <p class="info">{{unfinishedGoods}}</p>
-        <p class="title">Finished Goods</p>
-        <p class="info">{{finishedGoods}}</p>            
-        <p class="title">Quota</p>
-        <p class="info"> {{goodsTowardsQuota}} / {{quota}}</p>
-        <p class="title">Inventory Remaining</p>
-        <p class="info">{{this.inventoryRemaining}}</p>
-    </div> -->
-
     <ngx-charts-number-card
         style="grid-column: 1; grid-row: 1;"
         class="chart"
@@ -34,32 +19,17 @@
         [view]="[300, 300]"
         [scheme]="colorScheme"
         [results]="pieData"
+        [max]="50"
+        [showText]="false"
     >
     </ngx-charts-gauge>
-
-    <!-- <div 
-        class="section"
-        style="grid-column: 1; grid-row: 2;" 
-    >
-        <br>
-        <p class="title">Last Takt Time</p>
-        <p class="info" *ngIf="taktTimes[0].series.length > 1">
-            {{taktTimes[0].series[taktTimes[0].series.length - 1].value}}s ({{taktTimes[0].series.length}} recorded.)
-        </p>
-        <p class="info" *ngIf="taktTimes[0].series.length == 0">
-            0s (0 recorded.)
-        </p>
-    
-        <p class="title">Avg Takt Time</p>
-        <p class="info">{{(averageTaktTime() / 1000).toFixed(2)}}s</p>
-    </div> -->
 
     <ngx-charts-number-card
         style="grid-column: 1; grid-row: 2;"
         class="chart"
         [view]="[300, 300]"
         [scheme]="colorScheme"
-        [results]="taktTimes"
+        [results]="taktAverages"
     >
     </ngx-charts-number-card>
     
@@ -77,16 +47,6 @@
         [results]="taktTimes"
     >
     </ngx-charts-line-chart>
-
-    <!-- <ngx-charts-gauge
-        style="grid-column: 2; grid-row: 2;"
-        class="chart"
-        [view]="[300, 300]"
-        [scheme]="colorScheme"
-        [results]="taktTimes"
-    >
-    </ngx-charts-gauge> -->
-
     
     <p class="title">Camera MAC: </p>
     <p class="info">34:56:FE:A4:01:B0</p>
