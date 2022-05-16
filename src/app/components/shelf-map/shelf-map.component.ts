@@ -79,9 +79,9 @@ export class ShelfMapComponent implements OnInit {
         size: [this.mapWidth, this.mapHeight],
       }),
     });
-    this.zoneLayer = new VectorLayer({
-      source: new VectorSource({ features: this.zoneFeatures }),
-    });
+    // this.zoneLayer = new VectorLayer({
+    //   source: new VectorSource({ features: this.zoneFeatures }),
+    // });
     this.pinLayer = new VectorLayer({
       source: new VectorSource({ features: this.pinFeatures }),
     });
@@ -98,14 +98,18 @@ export class ShelfMapComponent implements OnInit {
     const mapElement = <HTMLElement>document.querySelector('#map');
     if (mapElement) {
       this.map = new OpMap({
-        layers: [tileLayer, this.zoneLayer, this.pinLayer],
+        layers: [
+          tileLayer, 
+          //this.zoneLayer, 
+          this.pinLayer
+        ],
         target: mapElement,
         view: mapView,
       });
       this.map.once('postrender', ()=>{
         console.log('map rendered, start animation')
         setInterval(()=>{
-          this.map?.getAllLayers()[2].setSource(new VectorSource({ features: this.processPins() }))
+          this.map?.getAllLayers()[1].setSource(new VectorSource({ features: this.processPins() }))
         }, 1000)
       })
     } 
@@ -122,7 +126,7 @@ export class ShelfMapComponent implements OnInit {
         "lastY": this.tagPositionMap.get(newPs["tag-ble-id"])?.y,
       })
     }
-    //this.map?.getAllLayers()[2].setSource(new VectorSource({ features: this.processPins() }))
+    //this.map?.getAllLayers()[1].setSource(new VectorSource({ features: this.processPins() }))
   }
 
   //I/O Functions
@@ -146,27 +150,28 @@ export class ShelfMapComponent implements OnInit {
     return pinFeats;
   }
 
-  processZones(zones: any): any[] {
-    let zoneFeats: any[] = [];
-    for (var i = 0; i < zones.length; i++) {
-      if (zones[i].Polypoints[zones[i].Polypoints.length - 1] == ';') {
-        zones[i].Polypoints = zones[i].Polypoints.slice(0, -1);
-      }
-      zones[i].Polypoints = zones[i].Polypoints.split(';');
-      for (var j = 0; j < zones[i].Polypoints.length; j++) {
-        zones[i].Polypoints[j] = zones[i].Polypoints[j].split(',');
-        zones[i].Polypoints[j][0] = <Number>zones[i].Polypoints[j][0];
-        zones[i].Polypoints[j][1] = -(<Number>zones[i].Polypoints[j][1]); //YNEG
-      }
-    }
-    for (let i = 0; i < zones.length; i++) {
-      zoneFeats.push(
-        this.mapService.createZoneFeature(
-          this.zones[i],
-          this.mapService.returnCustomZoneStyle()
-        )
-      );
-    }
-    return zoneFeats;
-  }
+  // processZones(zones: any): any[] {
+  //   let zoneFeats: any[] = [];
+  //   for (var i = 0; i < zones.length; i++) {
+  //     if (zones[i].Polypoints[zones[i].Polypoints.length - 1] == ';') {
+  //       zones[i].Polypoints = zones[i].Polypoints.slice(0, -1);
+  //     }
+  //     zones[i].Polypoints = zones[i].Polypoints.split(';');
+  //     for (var j = 0; j < zones[i].Polypoints.length; j++) {
+  //       zones[i].Polypoints[j] = zones[i].Polypoints[j].split(',');
+  //       zones[i].Polypoints[j][0] = <Number>zones[i].Polypoints[j][0];
+  //       zones[i].Polypoints[j][1] = -(<Number>zones[i].Polypoints[j][1]); //YNEG
+  //     }
+  //   }
+  //   for (let i = 0; i < zones.length; i++) {
+  //     zoneFeats.push(
+  //       this.mapService.createZoneFeature(
+  //         this.zones[i],
+  //         this.mapService.returnCustomZoneStyle()
+  //       )
+  //     );
+  //   }
+  //   return zoneFeats;
+  // }
+  
 }
