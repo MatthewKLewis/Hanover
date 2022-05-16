@@ -39,8 +39,8 @@ export class AnalyticsComponent implements OnInit {
   unfinishedGoods: number = 0;
   finishedGoods: number = 0;
   goodsTowardsQuota: number = 0;
-  quota: number = 20;
-  inventoryRemaining: number = 50;
+  quota: number = 50;
+  inventoryRemaining: number = 100;
   timeLastTakted: number = 0;
 
   update$: Subject<any> = new Subject();
@@ -163,7 +163,7 @@ export class AnalyticsComponent implements OnInit {
 
     if (this.taktTimes[0].series.length > 20) {
       console.log("slicing!");
-      this.taktTimes[0].series = this.taktTimes[0].series.slice(this.taktTimes[0].length - 20, this.taktTimes[0].length)
+      this.taktTimes[0].series = this.taktTimes[0].series.slice(this.taktTimes[0].series.length - 20, this.taktTimes[0].series.length)
     }
     this.taktTimes = [...this.taktTimes];
 
