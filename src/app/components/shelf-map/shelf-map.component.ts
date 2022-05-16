@@ -133,7 +133,7 @@ export class ShelfMapComponent implements OnInit {
       index++;
       pinFeats.push(this.mapService.createIconStaffFeature({
         x: (pin["x"] * MAP_COEFFICIENT) + MAP_OFFSET,
-        y: 20 + (index * 40),
+        y: 5 + (index * 40),
         Name: pin["tag-ble-id"]
       }))
     })
