@@ -162,6 +162,7 @@ export class AnalyticsComponent implements OnInit {
     });
 
     if (this.taktTimes[0].series.length > 20) {
+      console.log("slicing!");
       this.taktTimes[0].series = this.taktTimes[0].series.slice(this.taktTimes[0].length - 20, this.taktTimes[0].length)
     }
     this.taktTimes = [...this.taktTimes];
