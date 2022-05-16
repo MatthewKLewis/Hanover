@@ -2,7 +2,6 @@ import {
   Component,
   Input,
   OnInit,
-  OnChanges,
   SimpleChanges,
 } from '@angular/core';
 
@@ -15,7 +14,7 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Projection from 'ol/proj/Projection';
 import Layer from 'ol/layer/Layer';
-import { Message, Position } from '../../services/angularMqtt.service'
+import { Position } from '../../services/angularMqtt.service'
 
 const MAP_COEFFICIENT = 200;
 const MAP_OFFSET = 420; //420 is the distance in pixels from origin-X to center-table-X
@@ -103,7 +102,14 @@ export class ShelfMapComponent implements OnInit {
         target: mapElement,
         view: mapView,
       });
-    } else {
+      this.map.once('postrender', ()=>{
+        console.log('map rendered, start animation')
+        setInterval(()=>{
+          this.map?.getAllLayers()[2].setSource(new VectorSource({ features: this.processPins() }))
+        }, 1000)
+      })
+    } 
+    else {
       console.log('map failed to draw.');
     }
   }
@@ -116,7 +122,7 @@ export class ShelfMapComponent implements OnInit {
         "lastY": this.tagPositionMap.get(newPs["tag-ble-id"])?.y,
       })
     }
-    this.map?.getAllLayers()[2].setSource(new VectorSource({ features: this.processPins() }))
+    //this.map?.getAllLayers()[2].setSource(new VectorSource({ features: this.processPins() }))
   }
 
   //I/O Functions

@@ -6,8 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Message, Position } from 'src/app/services/angularMqtt.service';
+import { Position } from 'src/app/services/angularMqtt.service';
 import { format, sub } from 'date-fns';
 
 
@@ -38,12 +37,12 @@ export class AnalyticsComponent implements OnInit {
   //stats
   unfinishedGoods: number = 0;
   finishedGoods: number = 0;
+
   goodsTowardsQuota: number = 0;
   quota: number = 50;
   inventoryRemaining: number = 100;
-  timeLastTakted: number = 0;
 
-  update$: Subject<any> = new Subject();
+  timeLastTakted: number = 0;
 
   // COMPLETION STATS
   pieData: any = [
@@ -128,7 +127,6 @@ export class AnalyticsComponent implements OnInit {
       this.pieData[1].value = this.quota - this.goodsTowardsQuota;
       this.pieData[2].value = this.inventoryRemaining - this.goodsTowardsQuota;
       this.pieData = [...this.pieData];
-
     }
   }
 
@@ -162,7 +160,6 @@ export class AnalyticsComponent implements OnInit {
     });
 
     if (this.taktTimes[0].series.length > 20) {
-      console.log("slicing!");
       this.taktTimes[0].series = this.taktTimes[0].series.slice(this.taktTimes[0].series.length - 20, this.taktTimes[0].series.length)
     }
     this.taktTimes = [...this.taktTimes];
@@ -176,42 +173,5 @@ export class AnalyticsComponent implements OnInit {
 
   reset() {
     location.reload();
-    // this.unfinishedGoods = 0;
-    // this.finishedGoods = 0;
-    // this.goodsTowardsQuota = 0;
-    // this.tagPositionMap.clear();
-
-    // this.taktTimes  = [
-    //   {
-    //     name: "Takt Times",
-    //     series: []
-    //   }
-    // ]
-
-    // this.taktAverages = [
-    //   {
-    //     "name": "Last Takt",
-    //     "value": 0,
-    //   },
-    //   {
-    //     "name": "Average Takt",
-    //     "value": 0,
-    //   },
-    // ]
-
-    // this.pieData = [
-    //   {
-    //     "name": "Complete",
-    //     "value": 0,
-    //   },
-    //   {
-    //     "name": "Quota",
-    //     "value": this.inventoryRemaining,
-    //   },
-    //   {
-    //     "name": "Inventory",
-    //     "value": this.inventoryRemaining,
-    //   },
-    // ]
   }
 }
