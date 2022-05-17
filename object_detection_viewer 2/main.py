@@ -22,7 +22,6 @@ mqtt_connected = False
 detections = []
 last_detection_time = time.time()
 
-
 def mqtt_on_connect(client, userdata, flags, rc):
     if rc == 0:
         global mqtt_connected
@@ -111,7 +110,7 @@ def main():
         if (time.time() - last_detection_time >= DETECTION_RETENTION):
             detections = []
 
-        # display the frame
+        # display the frame # RE-STREAM INSTEAD?
         cv2.imshow("Frame", frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
