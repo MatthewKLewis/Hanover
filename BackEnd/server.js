@@ -1,6 +1,10 @@
 const express = require("express");
 const app = express();
 
+//CV
+const cv = require('./opencv');
+console.log(cv.rectangle);
+
 const { proxy, _ } = require("rtsp-relay")(app);
 
 const handler = proxy({

@@ -5,7 +5,6 @@ import time
 import cv2
 from paho.mqtt import client as mqtt_client
 
-
 CONFIG_FILE = "configs.conf"
 CONFIG_SECT = "default"
 LABEL_FILE = "labelmap.json"
@@ -66,6 +65,8 @@ def main():
         client.on_message = mqtt_on_message
         client.connect(config.get("mqtt_broker_host"),
                 port=int(config.get("mqtt_broker_port")))
+        print("/merakimv/{}/custom_analytics".format(
+                config.get("camera_serial")), 0)
         client.subscribe("/merakimv/{}/custom_analytics".format(
                 config.get("camera_serial")), 0)
         client.loop_start()
@@ -86,6 +87,7 @@ def main():
             continue
         """
         if detections:
+            print("Total Detected: " + detections.count)
             for detection in detections:
                 detection_class = detection["class"]
                 score = detection["score"]
