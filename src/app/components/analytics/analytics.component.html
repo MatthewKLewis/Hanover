@@ -1,68 +1,78 @@
 <div class="wrapper">
+  <div class="button-row">
+    <button class="button" (click)="reset()">Reset</button>
+  </div>
 
-    <div class="button-row">
-        <button class="button" (click)="reset()">Reset</button>
-    </div>
+  <ngx-charts-number-card
+    style="grid-column: 1; grid-row: 1"
+    class="chart"
+    [scheme]="colorScheme"
+    [results]="completenessData"
+  >
+  </ngx-charts-number-card>
+  <ngx-charts-gauge
+    style="grid-column: 2; grid-row: 1;"
+    class="chart"
+    [scheme]="colorScheme"
+    [results]="completenessData"
+    [max]="50"
+    [showText]="false"
+  >
+  </ngx-charts-gauge>
 
-    <ngx-charts-number-card
-        style="grid-column: 1; grid-row: 1;"
-        class="chart"
-        [view]="[300, 300]"
-        [scheme]="colorScheme"
-        [results]="pieData"
-    >
-    </ngx-charts-number-card>
-    
-    <ngx-charts-gauge
-        style="grid-column: 2; grid-row: 1;"
-        class="chart"
-        [view]="[300, 300]"
-        [scheme]="colorScheme"
-        [results]="pieData"
-        [max]="50"
-        [showText]="false"
-    >
-    </ngx-charts-gauge>
+  <ngx-charts-number-card
+    style="grid-column: 1; grid-row: 2"
+    class="chart"
+    [scheme]="colorScheme"
+    [results]="quotaData"
+  >
+  </ngx-charts-number-card>
+  <ngx-charts-gauge
+    style="grid-column: 2; grid-row: 2"
+    class="chart"
+    [scheme]="colorScheme"
+    [results]="quotaData"
+    [max]="50"
+    [showText]="false"
+  >
+  </ngx-charts-gauge>
 
-    <ngx-charts-number-card
-        style="grid-column: 1; grid-row: 2;"
-        class="chart"
-        [view]="[300, 300]"
-        [scheme]="colorScheme"
-        [results]="taktAverages"
-    >
-    </ngx-charts-number-card>
-    
-    <ngx-charts-line-chart
-        style="grid-column: 2; grid-row: 2;"  
-        class="line-chart"
-        [view]="[500, 250]"
-        [scheme]="colorScheme"
-        [showXAxisLabel]="true"
-        [showYAxisLabel]="true"
-        [xAxis]="true"
-        [yAxis]="true"
-        [xAxisLabel]="'Time'"
-        [yAxisLabel]="'Time (Seconds)'"
-        [results]="taktTimes"
-    >
-    </ngx-charts-line-chart>
-    
-    <!-- <div 
-        class="section"
-        style="grid-column: 1 / 2; grid-row: 3;"
-    >
-        <p class="title">Total # of takt times: </p>
-        <p class="info">{{taktTimes[0].series.length}}</p>
-        <p class="title">Camera MAC: </p>
-        <p class="info">34:56:FE:A4:01:B0</p>
-        <p class="title">Camera RTSP: </p>
-        <p class="info">rtsp://192.168.5.140:9000/live</p>
-        
-        <p class="title">AoA Messages: </p>
-        <div class="info">
-            <p *ngFor="let pin of tagPositionMap | keyvalue">{{pin.key}} : {{pin.value.x.toFixed(2)}}, {{pin.value.y}},</p>
-        </div>
-    </div> -->
+  <ngx-charts-number-card
+    style="grid-column: 1; grid-row: 3"
+    class="chart"
+    [scheme]="colorScheme"
+    [results]="inventoryData"
+  >
+  </ngx-charts-number-card>
+  <ngx-charts-gauge
+    style="grid-column: 2; grid-row: 3"
+    class="chart"
+    [scheme]="colorScheme"
+    [results]="inventoryData"
+    [max]="50"
+    [showText]="false"
+  >
+  </ngx-charts-gauge>
 
+  <ngx-charts-number-card
+    style="grid-column: 1; grid-row: 4"
+    class="chart"
+    [scheme]="colorScheme"
+    [results]="completenessData"
+  >
+  </ngx-charts-number-card>
+  <ngx-charts-line-chart
+    style="grid-column: 2; grid-row: 4"
+    class="line-chart"
+    [view]="[500, 250]"
+    [scheme]="colorScheme"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    [xAxis]="true"
+    [yAxis]="true"
+    [xAxisLabel]="'Time'"
+    [yAxisLabel]="'Time (Seconds)'"
+    [results]="taktTimes"
+  >
+  </ngx-charts-line-chart>
 </div>

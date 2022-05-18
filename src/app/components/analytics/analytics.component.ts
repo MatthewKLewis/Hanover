@@ -3,12 +3,15 @@ import {
   Input,
   OnInit,
   OnChanges,
+  AfterViewInit,
   SimpleChanges,
+  ViewChild,
+  ViewChildren,
 } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Position } from 'src/app/services/angularMqtt.service';
 import { format, sub } from 'date-fns';
-
+import { NumberCardComponent, GaugeComponent, LineChartComponent } from '@swimlane/ngx-charts';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +26,10 @@ export class AnalyticsComponent implements OnInit {
   colorScheme: any = {
     domain: ['#E44D25', '#7aa3e5', '#a8385d', '#aae3f5']
   };
+
+  @ViewChildren(GaugeComponent) gauges!: GaugeComponent[];
+  @ViewChildren(NumberCardComponent) cards!: NumberCardComponent[];
+  @ViewChildren(LineChartComponent) lineCharts!: LineChartComponent[];
 
   @Input() input: Position = {
     "tag-ble-id": 'error',
@@ -45,15 +52,21 @@ export class AnalyticsComponent implements OnInit {
   timeLastTakted: number = 0;
 
   // COMPLETION STATS
-  pieData: any = [
+  completenessData: any = [
     {
       "name": "Complete",
       "value": 0,
     },
+  ]
+
+  quotaData: any = [
     {
       "name": "Quota",
       "value": this.quota,
     },
+  ]
+
+  inventoryData: any = [
     {
       "name": "Inventory",
       "value": this.inventoryRemaining,
@@ -77,12 +90,13 @@ export class AnalyticsComponent implements OnInit {
       "value": 0,
     },
   ]
-  
+
   constructor() {
     this.timeLastTakted = Date.now();
   }
 
-  ngOnInit(): void {  }
+  ngOnInit(): void { this.arrangeGraphs() }
+  ngAfterViewInit(): void { this.arrangeGraphs() }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['input']) {
@@ -101,7 +115,7 @@ export class AnalyticsComponent implements OnInit {
       let lastY: number = this.tagPositionMap.get(newPs["tag-ble-id"])?.y || -1
 
       this.tagPositionMap.set(newPs["tag-ble-id"], {
-        "tag-ble-id" : newPs["tag-ble-id"],
+        "tag-ble-id": newPs["tag-ble-id"],
         "x": newPs.x,
         "y": newPs.y,
         "lastX": lastX,
@@ -109,25 +123,43 @@ export class AnalyticsComponent implements OnInit {
       })
 
       //PER MESSAGE
-      if (newPs.x > 0 && lastX < 0) { 
+      if (newPs.x > 0 && lastX < 0) {
         this.goodsTowardsQuota++;
         this.markTaktTime()
       }
 
       //CHECK ALL
-      this.tagPositionMap.forEach((tagP: Position)=>{
+      this.tagPositionMap.forEach((tagP: Position) => {
         if (tagP.x > 0) newFinGoods++;
         if (tagP.x < 0) newUnfinGoods++;
       })
-      
+
       this.unfinishedGoods = newUnfinGoods;
       this.finishedGoods = newFinGoods;
 
-      this.pieData[0].value = this.goodsTowardsQuota;
-      this.pieData[1].value = this.quota - this.goodsTowardsQuota;
-      this.pieData[2].value = this.inventoryRemaining - this.goodsTowardsQuota;
-      this.pieData = [...this.pieData];
+      this.completenessData[0].value = this.goodsTowardsQuota;
+      this.quotaData[0].value = this.quota - this.goodsTowardsQuota;
+      this.inventoryData[0].value = this.inventoryRemaining - this.goodsTowardsQuota;
     }
+  }
+
+  arrangeGraphs() {
+    setTimeout(() => {
+      this.gauges.forEach((gauge: GaugeComponent) => {
+        gauge.margin = [60, 40, 10, 40];
+        gauge.view = [120, 120];
+        gauge.update();
+      })
+      this.cards.forEach((card: NumberCardComponent) => {
+        card.view = [250, 150];
+        card.update();
+      })
+      this.lineCharts.forEach((lineChart: LineChartComponent) => {
+        lineChart.margin = [20, 0, 10, 0];
+        lineChart.view = [400, 150];
+        lineChart.update();
+      })
+    }, 0);
   }
 
   averageTaktTime() {
@@ -135,18 +167,18 @@ export class AnalyticsComponent implements OnInit {
       var total = 0;
       var avg = 0;
       if (this.taktTimes[0].series.length < 20) {
-        for(var i = 0; i < this.taktTimes[0].series.length; i++) {
-            total += this.taktTimes[0].series[i].value;
-            var avg = total / this.taktTimes[0].series.length;
-          }
-        } else {
-          for(var i = this.taktTimes[0].series.length - 20; i < this.taktTimes[0].series.length; i++) {
-            total += this.taktTimes[0].series[i].value;
-            var avg = total / 20;
+        for (var i = 0; i < this.taktTimes[0].series.length; i++) {
+          total += this.taktTimes[0].series[i].value;
+          var avg = total / this.taktTimes[0].series.length;
+        }
+      } else {
+        for (var i = this.taktTimes[0].series.length - 20; i < this.taktTimes[0].series.length; i++) {
+          total += this.taktTimes[0].series[i].value;
+          var avg = total / 20;
         }
       }
       return avg;
-    } 
+    }
     else {
       return 0;
     }
