@@ -78,15 +78,17 @@ export class AnalyticsComponent implements OnInit {
       series: []
     }
   ]
-  taktAverages: any = [
+  lastTakt: any = [
     {
-      "name": "Last Takt",
+      "name": "Last Takt Time",
       "value": 0,
-    },
+    }
+  ]
+  averageTakt: any = [
     {
-      "name": "Average Takt",
+      "name": "Avg Takt Time",
       "value": 0,
-    },
+    }
   ]
 
   constructor() {
@@ -199,9 +201,11 @@ export class AnalyticsComponent implements OnInit {
     }
     this.taktTimes = [...this.taktTimes];
 
-    this.taktAverages[0].value = latestTakt //last
-    this.taktAverages[1].value = this.averageTaktTime() //avg
-    this.taktAverages = [...this.taktAverages];
+    this.lastTakt[0].value = latestTakt //last
+    this.lastTakt = [...this.lastTakt];
+    
+    this.averageTakt[1].value = this.averageTaktTime() //avg
+    this.averageTakt = [...this.averageTakt];
 
     this.timeLastTakted = Date.now();
   }

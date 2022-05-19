@@ -58,7 +58,7 @@
     style="grid-column: 1; grid-row: 4"
     class="chart"
     [scheme]="colorScheme"
-    [results]="completenessData"
+    [results]="lastTakt"
   >
   </ngx-charts-number-card>
   <ngx-charts-line-chart
@@ -76,12 +76,12 @@
   >
   </ngx-charts-line-chart>
 
-  <!--- Last Card --->>
+  <!--- Last Card --->
   <ngx-charts-number-card
     style="grid-column: 1; grid-row: 5"
     class="chart"
     [scheme]="colorScheme"
-    [results]="completenessData"
+    [results]="averageTakt"
   >
   </ngx-charts-number-card>
 
