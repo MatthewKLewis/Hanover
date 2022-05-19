@@ -58,14 +58,12 @@ export class AnalyticsComponent implements OnInit {
       "value": 0,
     },
   ]
-
   quotaData: any = [
     {
       "name": "Quota",
       "value": this.quota,
     },
   ]
-
   inventoryData: any = [
     {
       "name": "Inventory",
