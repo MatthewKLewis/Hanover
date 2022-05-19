@@ -204,7 +204,7 @@ export class AnalyticsComponent implements OnInit {
     this.lastTakt[0].value = latestTakt //last
     this.lastTakt = [...this.lastTakt];
     
-    this.averageTakt[1].value = this.averageTaktTime() //avg
+    this.averageTakt[0].value = this.averageTaktTime() //avg
     this.averageTakt = [...this.averageTakt];
 
     this.timeLastTakted = Date.now();
