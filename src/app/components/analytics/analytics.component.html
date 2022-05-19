@@ -11,7 +11,7 @@
   >
   </ngx-charts-number-card>
   <ngx-charts-gauge
-    style="grid-column: 2; grid-row: 1;"
+    style="grid-column: 2; grid-row: 1"
     class="chart"
     [scheme]="colorScheme"
     [results]="completenessData"
@@ -75,4 +75,14 @@
     [results]="taktTimes"
   >
   </ngx-charts-line-chart>
+
+  <!--- Last Card --->>
+  <ngx-charts-number-card
+    style="grid-column: 1; grid-row: 5"
+    class="chart"
+    [scheme]="colorScheme"
+    [results]="completenessData"
+  >
+  </ngx-charts-number-card>
+
 </div>

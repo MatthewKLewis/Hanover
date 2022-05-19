@@ -136,8 +136,13 @@ export class AnalyticsComponent implements OnInit {
       this.finishedGoods = newFinGoods;
 
       this.completenessData[0].value = this.goodsTowardsQuota;
+      this.completenessData = [...this.completenessData];
+
       this.quotaData[0].value = this.quota - this.goodsTowardsQuota;
+      this.quotaData = [...this.quotaData];
+
       this.inventoryData[0].value = this.inventoryRemaining - this.goodsTowardsQuota;
+      this.inventoryData = [...this.inventoryData];
     }
   }
 
