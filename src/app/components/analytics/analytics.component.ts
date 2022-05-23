@@ -16,16 +16,17 @@ import { NumberCardComponent, GaugeComponent, LineChartComponent } from '@swimla
 @Injectable({
   providedIn: 'root',
 })
+
 @Component({
   selector: 'app-analytics',
   templateUrl: './analytics.component.html',
   styleUrls: ['./analytics.component.scss'],
 })
+
 export class AnalyticsComponent implements OnInit {
 
-  colorScheme: any = {
-    domain: ['#E44D25', '#7aa3e5', '#a8385d', '#aae3f5']
-  };
+  colorScheme: any = { domain: ['#1565c0', '#7aa3e5', '#a8385d', '#aae3f5'] };
+  colorSchemeTwo: any = { domain: ['#e44d25', '#aae3f5'] };
 
   @ViewChildren(GaugeComponent) gauges!: GaugeComponent[];
   @ViewChildren(NumberCardComponent) cards!: NumberCardComponent[];
@@ -84,9 +85,11 @@ export class AnalyticsComponent implements OnInit {
       "value": 0,
     }
   ]
-  averageTakt: any = [
+
+  //MALFUNCTION STAT
+  malfunctionBoolean: any = [
     {
-      "name": "Avg Takt Time",
+      "name": "Bad Part Identified",
       "value": 0,
     }
   ]
@@ -204,8 +207,8 @@ export class AnalyticsComponent implements OnInit {
     this.lastTakt[0].value = latestTakt //last
     this.lastTakt = [...this.lastTakt];
     
-    this.averageTakt[0].value = this.averageTaktTime() //avg
-    this.averageTakt = [...this.averageTakt];
+    this.malfunctionBoolean[0].value = this.averageTaktTime() //avg
+    this.malfunctionBoolean = [...this.malfunctionBoolean];
 
     this.timeLastTakted = Date.now();
   }

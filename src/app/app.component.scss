@@ -6,7 +6,7 @@
     margin: 0 auto;
     display: grid;
     grid-template-rows: 84px 538px auto;
-    grid-template-columns: 958px auto;
+    grid-template-columns: 958px 720px;
 
     .box {
         margin: 5px;
@@ -35,7 +35,6 @@
     .analytics {
         grid-row: 2 / 4;
         grid-column: 2;
-        padding: 5px;
         border-radius: 10px;
     }
 }
