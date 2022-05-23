@@ -9,6 +9,7 @@
     class="chart"
     [scheme]="colorScheme"
     [results]="completenessData"
+    [view]="[250, 150]"
   >
   </ngx-charts-number-card>
   <ngx-charts-gauge
@@ -17,6 +18,7 @@
     [scheme]="colorScheme"
     [results]="completenessData"
     [max]="50"
+    [view]="[120,120]"
     [showText]="false"
   >
   </ngx-charts-gauge>
@@ -26,6 +28,7 @@
     class="chart"
     [scheme]="colorScheme"
     [results]="quotaData"
+    [view]="[250, 150]"
   >
   </ngx-charts-number-card>
   <ngx-charts-gauge
@@ -34,6 +37,7 @@
     [scheme]="colorScheme"
     [results]="quotaData"
     [max]="50"
+    [view]="[120,120]"
     [showText]="false"
   >
   </ngx-charts-gauge>
@@ -43,6 +47,7 @@
     class="chart"
     [scheme]="colorScheme"
     [results]="inventoryData"
+    [view]="[250, 150]"
   >
   </ngx-charts-number-card>
   <ngx-charts-gauge
@@ -51,6 +56,7 @@
     [scheme]="colorScheme"
     [results]="inventoryData"
     [max]="50"
+    [view]="[120,120]"
     [showText]="false"
   >
   </ngx-charts-gauge>
@@ -60,6 +66,7 @@
     class="chart"
     [scheme]="colorScheme"
     [results]="lastTakt"
+    [view]="[250, 150]"
   >
   </ngx-charts-number-card>
   <ngx-charts-line-chart
@@ -83,6 +90,7 @@
     class="chart"
     [scheme]="colorSchemeTwo"
     [results]="malfunctionBoolean"
+    [view]="[250, 150]"
   >
   </ngx-charts-number-card>
 

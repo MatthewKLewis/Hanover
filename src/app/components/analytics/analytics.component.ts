@@ -155,7 +155,6 @@ export class AnalyticsComponent implements OnInit {
     setTimeout(() => {
       this.gauges.forEach((gauge: GaugeComponent) => {
         gauge.margin = [60, 40, 10, 40];
-        gauge.view = [120, 120];
         gauge.update();
       })
       this.cards.forEach((card: NumberCardComponent) => {
@@ -164,7 +163,7 @@ export class AnalyticsComponent implements OnInit {
       })
       this.lineCharts.forEach((lineChart: LineChartComponent) => {
         lineChart.margin = [20, 0, 10, 0];
-        lineChart.view = [400, 150];
+        lineChart.view = [400, 250];
         lineChart.update();
       })
     }, 0);
