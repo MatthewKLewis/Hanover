@@ -117,6 +117,7 @@ export class MapService {
         anchorXUnits: IconAnchorUnits.FRACTION,
         anchorYUnits: IconAnchorUnits.FRACTION,
         src: './assets/icons/' + ICON_MAP.get(staff.Name),
+        scale: [1.5, 1.5],
       }),
       text: new Text({
         textAlign: 'center',
