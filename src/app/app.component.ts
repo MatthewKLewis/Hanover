@@ -15,9 +15,10 @@ export class AppComponent {
     "lastX": -1,
     "lastY": -1,
   }
+  alert: boolean = false;
 
   constructor(public angularMqttService: AngularMqttService) {
-    //this.angularMqttService.subscribe('aoa-test');
+    this.angularMqttService.subscribe('aoa-test');
     this.angularMqttService.subscribe('/merakimv/Q2EV-4RBE-ANPV/custom_analytics'); ///merakimv/Q2EV-4RBE-ANPV/custom_analytics
   }
 
@@ -26,8 +27,15 @@ export class AppComponent {
   }
 
   processMqttMessage(res:any) {
-    console.log(res);
-    if (res) {
+    if (res?.outputs) {
+      if (res.outputs.find((el:any)=>{ return el.class == 0 })) {
+        //console.log("bad part id'd");
+        this.alert = true
+      } else {
+        this.alert = false
+      }
+    }
+    if (res?.azim) {
       let returnMessage: Message = {
         "azim": res.azim,
         "azim_std": res.azim_std,
@@ -46,7 +54,7 @@ export class AppComponent {
       this.lastMsg = tagPosition
     }
     else {
-      console.log('message$ update without response')
+      //console.log('message$ update without response')
     }
   }
 

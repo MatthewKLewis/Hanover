@@ -39,6 +39,7 @@ export class AnalyticsComponent implements OnInit {
     "lastX": -1,
     "lastY": -1,
   };
+  @Input() alert: boolean = false;
 
   tagPositionMap: Map<string, Position> = new Map<string, Position>();
 
@@ -105,8 +106,8 @@ export class AnalyticsComponent implements OnInit {
     if (changes['input']) {
       //console.log(changes['input'].currentValue["tag-ble-id"]); //get tag ids
       this.updatePinPositions(changes['input'].currentValue);
-    } else {
-      //console.log('change to something else');
+    } else if (changes['alert']) {
+      console.log('change to alert');
     }
   }
 
