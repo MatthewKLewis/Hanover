@@ -47,7 +47,7 @@ export class ShelfMapComponent implements OnInit {
   pinFeatures: any[] = [];
   pinLayer?: Layer;
 
-  map?: OpMap;
+  map!: OpMap;
 
   constructor(public mapService: MapService) {}
 
@@ -108,6 +108,9 @@ export class ShelfMapComponent implements OnInit {
       });
       this.map.once('postrender', ()=>{
         console.log('map rendered, start animation')
+        setTimeout(()=>{
+          this.map.updateSize();
+        }, 1200)
         setInterval(()=>{
           this.map?.getAllLayers()[1].setSource(new VectorSource({ features: this.processPins() }))
         }, 1000)
