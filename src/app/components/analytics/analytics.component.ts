@@ -108,6 +108,7 @@ export class AnalyticsComponent implements OnInit {
       this.updatePinPositions(changes['input'].currentValue);
     } else if (changes['alert']) {
       console.log('change to alert');
+      this.malfunctionBoolean[0].value = 1;
     }
   }
 
