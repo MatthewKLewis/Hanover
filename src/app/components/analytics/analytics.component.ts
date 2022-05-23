@@ -78,7 +78,11 @@ export class AnalyticsComponent implements OnInit {
     {
       name: "Takt Times",
       series: []
-    }
+    },
+    {
+      name: "Average Takt",
+      series: []
+    },
   ]
   lastTakt: any = [
     {
@@ -107,8 +111,8 @@ export class AnalyticsComponent implements OnInit {
       //console.log(changes['input'].currentValue["tag-ble-id"]); //get tag ids
       this.updatePinPositions(changes['input'].currentValue);
     } else if (changes['alert']) {
-      console.log('change to alert');
-      this.malfunctionBoolean[0].value = 1;
+      //console.log('change to alert');
+      this.malfunctionBoolean[0].value = changes['alert'].currentValue ? 1 : 0;
     }
   }
 
@@ -203,13 +207,12 @@ export class AnalyticsComponent implements OnInit {
     if (this.taktTimes[0].series.length > 20) {
       this.taktTimes[0].series = this.taktTimes[0].series.slice(this.taktTimes[0].series.length - 20, this.taktTimes[0].series.length)
     }
-    this.taktTimes = [...this.taktTimes];
-
+    
     this.lastTakt[0].value = latestTakt //last
     this.lastTakt = [...this.lastTakt];
     
-    this.malfunctionBoolean[0].value = this.averageTaktTime() //avg
-    this.malfunctionBoolean = [...this.malfunctionBoolean];
+    this.taktTimes[1].value = this.averageTaktTime() //avg
+    this.taktTimes = [...this.taktTimes];
 
     this.timeLastTakted = Date.now();
   }
