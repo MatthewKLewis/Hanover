@@ -113,6 +113,7 @@ export class AnalyticsComponent implements OnInit {
     } else if (changes['alert']) {
       //console.log('change to alert');
       this.malfunctionBoolean[0].value = changes['alert'].currentValue ? 1 : 0;
+      this.malfunctionBoolean = [...this.malfunctionBoolean]
     }
   }
 
