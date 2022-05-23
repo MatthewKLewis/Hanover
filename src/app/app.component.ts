@@ -17,7 +17,8 @@ export class AppComponent {
   }
 
   constructor(public angularMqttService: AngularMqttService) {
-    this.angularMqttService.subscribe();
+    //this.angularMqttService.subscribe('aoa-test');
+    this.angularMqttService.subscribe('/merakimv/Q2EV-4RBE-ANPV/custom_analytics'); ///merakimv/Q2EV-4RBE-ANPV/custom_analytics
   }
 
   ngOnInit(): void {
@@ -25,6 +26,7 @@ export class AppComponent {
   }
 
   processMqttMessage(res:any) {
+    console.log(res);
     if (res) {
       let returnMessage: Message = {
         "azim": res.azim,

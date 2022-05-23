@@ -45,8 +45,8 @@ export class AngularMqttService {
     }
   }
 
-  subscribe() {
-    this.subscription = this.subscribeToQueue(this.topic).subscribe(
+  subscribe(topic: string) {
+    this.subscription = this.subscribeToQueue(topic).subscribe(
       (data: IMqttMessage) => {
         const XM = JSON.parse(data.payload.toString());
         this.message$.next(XM);
