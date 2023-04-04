@@ -11,3 +11,4 @@ Dashboard incorporating an RTSP live stream from a Meraki Security Camera, an Op
 # Startup
 - Start server.js in BackEnd.
 - Start main.py in object_detection_viewer_2
+- Open your browser to localhost:2000
