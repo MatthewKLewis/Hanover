@@ -146,23 +146,29 @@ def main():
             continue
         """
         if detections:
-            for detection in detections:
+            for detection in detections: # ITERATE OVER DETECTIONS
+
                 detection_class = detection["class"]
                 score = detection["score"]
                 location = detection["location"]
+
                 if str(detection_class) not in label_map.keys():
                     continue
+
                 startX = int(location[1] * outputFrame.shape[1])
                 startY = int(location[0] * outputFrame.shape[0])
                 endX = int(location[3] * outputFrame.shape[1])
                 endY = int(location[2] * outputFrame.shape[0])
 
-                label = "{}: {:.2f}%".format(
-                        label_map.get(str(detection_class)), score * 100)
+                label = "{}: {:.2f}%".format(label_map.get(str(detection_class)), score * 100)
+
                 cv2.rectangle(outputFrame, (startX, startY), (endX, endY), DETECTION_DISPLAY_COLOR_GOOD if (detection_class == 1) else DETECTION_DISPLAY_COLOR_BAD, 3)
+
+                # Put rotations in here?
                 y = startY - 15 if startY - 15 > 15 else startY + 15
                 y = startY + 30
                 x = startX + 3
+
                 cv2.putText(outputFrame, label, (x, y), cv2.FONT_HERSHEY_SIMPLEX, .8, DETECTION_DISPLAY_COLOR_GOOD if (detection_class == 1) else DETECTION_DISPLAY_COLOR_BAD, 2)
 
         if (time.time() - last_detection_time >= DETECTION_RETENTION):
@@ -189,10 +195,8 @@ if __name__ == "__main__":
         client.on_message = mqtt_on_message
         client.connect(config.get("mqtt_broker_host"),
                 port=int(config.get("mqtt_broker_port")))
-        print("/merakimv/{}/custom_analytics".format(
-                config.get("camera_serial")))
-        client.subscribe("/merakimv/{}/custom_analytics".format(
-                config.get("camera_serial")), 0)
+        print("/merakimv/{}/custom_analytics".format(config.get("camera_serial")))
+        client.subscribe("/merakimv/{}/custom_analytics".format(config.get("camera_serial")), 0)
         client.loop_start()
         while not mqtt_connected:
             time.sleep(1.0)
