@@ -20,7 +20,7 @@ LABEL_FILE = "labelmap.json"
 # Number of seconds to retain the last detection on display if no new
 # detection is present. This is to compensate for the difference in the
 # refreshing rate between video frames and detections.
-DETECTION_RETENTION = 1
+DETECTION_RETENTION = 5
 DETECTION_DISPLAY_COLOR_GOOD = [98, 195, 35]
 DETECTION_DISPLAY_COLOR_BAD = [35, 98, 195]
 
