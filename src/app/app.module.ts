@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { ShelfMapComponent } from './components/shelf-map/shelf-map.component';
 import { AnalyticsComponent } from './components/analytics/analytics.component';
 import { VideoStreamComponent } from './components/video-stream/video-stream.component';
+import { HimssAnalyticsComponent } from './components/himss-analytics/himss-analytics.component';
 
 const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   connectOnCreate: false,
@@ -20,7 +21,8 @@ const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
     AppComponent,
     ShelfMapComponent,
     AnalyticsComponent,
-    VideoStreamComponent
+    VideoStreamComponent,
+    HimssAnalyticsComponent
   ],
   imports: [
     BrowserModule,
