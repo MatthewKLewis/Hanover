@@ -49,10 +49,15 @@ def generate():
                 if str(detection_class) not in label_map.keys():
                     continue
 
-                startX = int(location[1] * outputFrame.shape[1])
-                startY = int(location[0] * outputFrame.shape[0])
-                endX = int(location[3] * outputFrame.shape[1])
-                endY = int(location[2] * outputFrame.shape[0])
+                # shape[0] = 1080px, shape[1] = 1920px shape[3] = 3?
+                # location[0] = StartX
+                # location[1] = StartY
+                # location[2] = EndX
+                # location[3] = EndY
+                startX = int(location[0] * outputFrame.shape[1]) 
+                endX = int(location[2] * outputFrame.shape[1])
+                startY = int(location[1] * outputFrame.shape[0])
+                endY = int(location[3] * outputFrame.shape[0])
 
                 label = "{}: {:.2f}%".format(label_map.get(str(detection_class)), score * 100)
                 cv2.rectangle(outputFrame, (startX, startY), (endX, endY), DETECTION_DISPLAY_COLOR_GOOD if (detection_class == 1) else DETECTION_DISPLAY_COLOR_BAD, 3)
@@ -155,10 +160,17 @@ def main():
                 if str(detection_class) not in label_map.keys():
                     continue
 
-                startX = int(location[1] * outputFrame.shape[1])
-                startY = int(location[0] * outputFrame.shape[0])
-                endX = int(location[3] * outputFrame.shape[1])
-                endY = int(location[2] * outputFrame.shape[0])
+                # shape[0] = 1080, height in px
+                # shape[1] = 1920, width in px
+                # shape[3] = 3?
+                # location[0] = Start X position in terms of % of width
+                # location[1] = Start Y position in terms of % of height
+                # location[2] = End X
+                # location[3] = End Y
+                startX = int(location[0] * outputFrame.shape[1]) 
+                endX = int(location[2] * outputFrame.shape[1])
+                startY = int(location[1] * outputFrame.shape[0])
+                endY = int(location[3] * outputFrame.shape[0])
 
                 label = "{}: {:.2f}%".format(label_map.get(str(detection_class)), score * 100)
 

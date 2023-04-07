@@ -1,2 +1,26 @@
-<p *ngIf="alert">TYLENOL SPOTTED, STOCKING ADVIL!</p>
-<p *ngIf="!alert">PROCEED</p>
+<div class="wrapper">
+    <div *ngIf="!detections">
+        <b>Awaiting Stream Data...</b>
+    </div>
+    
+    <div *ngIf="detections">
+        <b>Detections:</b>
+        <div *ngFor="let detect of detections; let i = index">
+            <p *ngIf="detect?.class == 1">
+                <span>{{i+1}}: Advil</span>
+                <span style="font-size: smaller; color: grey; margin-left: 2em;">({{detect.location[0]}},{{detect.location[1]}})</span>
+            </p>
+            <p *ngIf="detect?.class == 0" style="color: red; font-weight: bold;">
+                <span>{{i+1}}: Tylenol</span>
+                <span style="font-size: smaller; color: grey; margin-left: 2em;">({{detect.location[0]}},{{detect.location[1]}})</span>
+            </p>
+        </div>
+    </div>
+
+    <hr>
+
+    <div>
+        <b>Stocking for: John Smith (DOB: 2/3/1988)</b>
+        <p *ngIf="contraindicationWarning" style="background-color: red; color: white; font-weight: bold;">Tylenol contraindicated for this patient!</p>
+    </div>
+</div>

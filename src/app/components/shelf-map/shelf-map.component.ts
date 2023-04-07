@@ -52,6 +52,7 @@ export class ShelfMapComponent implements OnInit {
   constructor(public mapService: MapService) {}
 
   ngOnInit(): void {
+    console.log("shelf map")
     this.drawMap();
   }
 

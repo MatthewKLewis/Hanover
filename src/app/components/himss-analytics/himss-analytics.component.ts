@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { Position } from 'src/app/services/angularMqtt.service';
+import { Component, OnInit} from '@angular/core';
+import { AngularMqttService } from 'src/app/services/angularMqtt.service';
 
 @Component({
   selector: 'app-himss-analytics',
@@ -7,27 +7,32 @@ import { Position } from 'src/app/services/angularMqtt.service';
   styleUrls: ['./himss-analytics.component.scss'],
 })
 export class HimssAnalyticsComponent implements OnInit {
-  @Input() input: Position = {
-    'tag-ble-id': 'error',
-    x: 0,
-    y: 0,
-    lastX: -1,
-    lastY: -1,
-  };
-  @Input() alert: boolean = false;
 
-  constructor() {}
+  detections: any[] = []
+  contraindicationWarning: boolean = false;
 
-  ngOnInit(): void {
-    console.log('HIMSS Analytics');
+  constructor(public angularMqttService: AngularMqttService) {
+    this.detections = [];
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['input']) {
-      console.log(changes['input'].currentValue['tag-ble-id']); //get tag ids
-    } 
-    else if (changes['alert']) {
-      console.log('change to alert');
+  ngOnInit(): void {
+    this.angularMqttService.subscribe('/merakimv/Q2JV-XAYQ-NSGH/custom_analytics'); ///merakimv/Q2EV-4RBE-ANPV/custom_analytics
+    this.angularMqttService.message$.subscribe((res:any)=>{ this.processMqttMessage(res) })
+  }
+
+  processMqttMessage(msg: any) {
+    this.detections = msg?.outputs;
+
+    if (this.detections) {
+      console.log(this.detections)
+      this.detections = this.detections.sort((a: any, b: any) => { return a.class - b.class })
+      
+      this.contraindicationWarning = false;
+      for (let i = 0; i < this.detections.length; i++) {
+        if (this.detections[i].class === 0) {
+          this.contraindicationWarning = true;
+        }        
+      }
     }
   }
 }
