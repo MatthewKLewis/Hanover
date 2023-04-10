@@ -2,15 +2,6 @@ import { IMqttMessage, IMqttServiceOptions, MqttService } from 'ngx-mqtt';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
-export interface Message {
-  "azim": number,
-  "azim_std": number,
-  "elev": number,
-  "elev_std": number,
-  "timestamp": number,
-  "tag-ble-id": string,
-}
-
 export interface Position {
   "tag-ble-id" : string,
   "lastX": number,
@@ -24,10 +15,13 @@ export interface Position {
 })
 export class AngularMqttService {
 
-  topic: string = 'aoa-test';
-  subscription?: Subscription;
   MQTT_SERVICE_OPTIONS?: IMqttServiceOptions;
-  message$ = new BehaviorSubject(null);
+
+  subPositions?: Subscription;
+  subMachineVision?: Subscription;
+
+  positions$ = new BehaviorSubject(null);
+  machineVisions$ = new BehaviorSubject(null);
 
   constructor(private _mqttService: MqttService) {
     this.MQTT_SERVICE_OPTIONS = {
@@ -37,21 +31,31 @@ export class AngularMqttService {
       path: '/ws',
     };
     this._mqttService.connect(this.MQTT_SERVICE_OPTIONS);
+    this.initialize();
+  }
+
+  initialize() {
+    console.log("init")
+    this.subPositions = this.subscribeToQueue('AoA-Position').subscribe(
+      (data: IMqttMessage) => {
+        const XM = JSON.parse(data.payload.toString());
+        console.log(XM)
+        this.positions$.next(XM);
+      }
+    );
+
+    this.subMachineVision = this.subscribeToQueue('/merakimv/Q2JV-XAYQ-NSGH/custom_analytics').subscribe(
+      (data: IMqttMessage) => {
+        const XM = JSON.parse(data.payload.toString());
+        console.log(XM)
+        this.machineVisions$.next(XM);
+      }
+    );
   }
 
   disconnect() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-  }
-
-  subscribe(topic: string) {
-    this.subscription = this.subscribeToQueue(topic).subscribe(
-      (data: IMqttMessage) => {
-        const XM = JSON.parse(data.payload.toString());
-        this.message$.next(XM);
-      }
-    );
+    this.subPositions && this.subPositions.unsubscribe();
+    this.subMachineVision && this.subMachineVision.unsubscribe();
   }
 
   subscribeToQueue(topic: string): Observable<IMqttMessage> {

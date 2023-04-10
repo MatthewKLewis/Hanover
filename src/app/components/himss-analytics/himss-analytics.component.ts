@@ -16,15 +16,13 @@ export class HimssAnalyticsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.angularMqttService.subscribe('/merakimv/Q2JV-XAYQ-NSGH/custom_analytics'); ///merakimv/Q2EV-4RBE-ANPV/custom_analytics
-    this.angularMqttService.message$.subscribe((res:any)=>{ this.processMqttMessage(res) })
+    
   }
 
   processMqttMessage(msg: any) {
     this.detections = msg?.outputs;
 
     if (this.detections) {
-      console.log(this.detections)
       this.detections = this.detections.sort((a: any, b: any) => { return a.class - b.class })
       
       this.contraindicationWarning = false;

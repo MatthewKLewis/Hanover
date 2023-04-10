@@ -14,10 +14,10 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Projection from 'ol/proj/Projection';
 import Layer from 'ol/layer/Layer';
-import { Position } from '../../services/angularMqtt.service'
+import { AngularMqttService, Position } from '../../services/angularMqtt.service'
 
 const MAP_COEFFICIENT = 200;
-const MAP_OFFSET = 420; //420 is the distance in pixels from origin-X to center-table-X
+const MAP_OFFSET = 420;
 
 @Component({
   selector: 'app-shelf-map',
@@ -49,24 +49,13 @@ export class ShelfMapComponent implements OnInit {
 
   map!: OpMap;
 
-  constructor(public mapService: MapService) {}
+  constructor(public angularMqttService: AngularMqttService, public mapService: MapService) {}
 
   ngOnInit(): void {
-    console.log("shelf map")
-    this.drawMap();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['input']) {
-      this.updatePinPositions(changes['input'].currentValue);
-    }
-    else {
-      //console.log('change to something else');
-    }
+    this.drawMap();    
   }
 
   //Side Effects Functions
-
   drawMap() {
     var extent: any = [0, 0, this.mapWidth, -this.mapHeight];
     var projection = new Projection({
@@ -123,13 +112,14 @@ export class ShelfMapComponent implements OnInit {
   }
 
   updatePinPositions(newPs: any) {
-    if (newPs["tag-ble-id"] != "error") {
-      this.tagPositionMap.set(newPs["tag-ble-id"], {
-        ...newPs,
-        "lastX": this.tagPositionMap.get(newPs["tag-ble-id"])?.x,
-        "lastY": this.tagPositionMap.get(newPs["tag-ble-id"])?.y,
-      })
-    }
+    //console.log(newPs);
+    // if (newPs["tag-ble-id"] != "error") {
+    //   this.tagPositionMap.set(newPs["tag-ble-id"], {
+    //     ...newPs,
+    //     "lastX": this.tagPositionMap.get(newPs["tag-ble-id"])?.x,
+    //     "lastY": this.tagPositionMap.get(newPs["tag-ble-id"])?.y,
+    //   })
+    // }
     //this.map?.getAllLayers()[1].setSource(new VectorSource({ features: this.processPins() }))
   }
 
