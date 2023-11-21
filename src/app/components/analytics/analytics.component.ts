@@ -9,7 +9,6 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { Position } from 'src/app/services/angularMqtt.service';
 import { format, sub } from 'date-fns';
 import { NumberCardComponent, GaugeComponent, LineChartComponent } from '@swimlane/ngx-charts';
 
@@ -32,16 +31,9 @@ export class AnalyticsComponent implements OnInit {
   @ViewChildren(NumberCardComponent) cards!: NumberCardComponent[];
   @ViewChildren(LineChartComponent) lineCharts!: LineChartComponent[];
 
-  @Input() input: Position = {
-    "tag-ble-id": 'error',
-    "x": 0,
-    "y": 0,
-    "lastX": -1,
-    "lastY": -1,
-  };
   @Input() alert: boolean = false;
 
-  tagPositionMap: Map<string, Position> = new Map<string, Position>();
+  tagPositionMap: Map<string, any> = new Map<string, any>();
 
   //stats
   unfinishedGoods: number = 0;
@@ -139,7 +131,7 @@ export class AnalyticsComponent implements OnInit {
       }
 
       //CHECK ALL
-      this.tagPositionMap.forEach((tagP: Position) => {
+      this.tagPositionMap.forEach((tagP: any) => {
         if (tagP.x > 0) newFinGoods++;
         if (tagP.x < 0) newUnfinGoods++;
       })

@@ -2,14 +2,6 @@ import { IMqttMessage, IMqttServiceOptions, MqttService } from 'ngx-mqtt';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
-export interface Position {
-  "tag-ble-id" : string,
-  "lastX": number,
-  "lastY": number,
-  "x" : number,
-  "y" : number,
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -25,7 +17,7 @@ export class AngularMqttService {
 
   constructor(private _mqttService: MqttService) {
     this.MQTT_SERVICE_OPTIONS = {
-      hostname: 'localhost',
+      hostname: '192.168.12.231',
       port: 9001,
       protocol: 'ws',
       path: '/ws',
@@ -39,7 +31,6 @@ export class AngularMqttService {
     this.subPositions = this.subscribeToQueue('AoA-Position').subscribe(
       (data: IMqttMessage) => {
         const XM = JSON.parse(data.payload.toString());
-        console.log(XM)
         this.positions$.next(XM);
       }
     );
@@ -47,7 +38,6 @@ export class AngularMqttService {
     this.subMachineVision = this.subscribeToQueue('/merakimv/Q2JV-XAYQ-NSGH/custom_analytics').subscribe(
       (data: IMqttMessage) => {
         const XM = JSON.parse(data.payload.toString());
-        console.log(XM)
         this.machineVisions$.next(XM);
       }
     );

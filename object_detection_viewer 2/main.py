@@ -70,13 +70,14 @@ def generate():
             detections = []
 
         # display the outputFrame # RE-STREAM INSTEAD?
+        # occasional failure here?
         (flag, encodedImage) = cv2.imencode(".jpg", outputFrame)
         yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + bytearray(encodedImage) + b'\r\n')
 
 @app.route("/video_feed")
 def video_feed():
 	# return the response generated along with the specific media
-	# type (mime type)
+    # either this method or generate() sometimes fails to deliver the image
 	return Response(generate(),
 		mimetype = "multipart/x-mixed-replace; boundary=frame")
 

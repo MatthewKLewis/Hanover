@@ -16,7 +16,7 @@ export class HimssAnalyticsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.angularMqttService.machineVisions$.subscribe((res:any)=>{ this.processMqttMessage(res); })
   }
 
   processMqttMessage(msg: any) {
